@@ -7,11 +7,16 @@ namespace soleMate
 {
     public partial class App : Application
     {
+        public NavigationPage LoginCredentialsPage { get; }
+
         public App()
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            // Create initial screen - currently login page
+            MainPage = new NavigationPage(new MainPage());
+            LoginCredentialsPage = new NavigationPage(new LoginCredentialsPage());
+
         }
 
         protected override void OnStart()
