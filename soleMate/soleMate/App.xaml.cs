@@ -9,11 +9,12 @@ namespace soleMate
     public partial class App : Application
     {
         public NavigationPage LoginCredentialsPage { get; }
+        public static RestClient restClient { get; private set; }
 
         public App()
         {
             InitializeComponent();
-            //RestClient restClient = new RestClient();
+            RestClient restClient = new RestClient("localhost:3000");
             // Create initial screen - currently login page
             MainPage = new NavigationPage(new MainPage());
             LoginCredentialsPage = new NavigationPage(new LoginCredentialsPage());
