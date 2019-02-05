@@ -1,4 +1,5 @@
-﻿using System;
+﻿using soleMate.Service.API;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace soleMate
         private async void OnSearchButtonClicked(object sender, EventArgs e)
         {
             //await Navigation.PushAsync(new SearchPage());
+            await Navigation.PushAsync(new SearchResultsPage());
         }
 
         private void CheckmarkButtonClicked(object sender, EventArgs e)
