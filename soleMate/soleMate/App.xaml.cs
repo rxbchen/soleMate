@@ -1,4 +1,5 @@
-﻿using System;
+﻿using soleMate.Service;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +13,7 @@ namespace soleMate
         public App()
         {
             InitializeComponent();
-
+            //RestClient restClient = new RestClient();
             // Create initial screen - currently login page
             MainPage = new NavigationPage(new MainPage());
             LoginCredentialsPage = new NavigationPage(new LoginCredentialsPage());

@@ -14,13 +14,6 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <ia:Checkbox x:Name="AwesomeCheckbox"
-            OutlineColor="Blue"
-            FillColor="Blue"
-            CheckColor="White"
-            Shape="Rectangle" 
-            IsCheckedChanged="CheckmarkButtonClicked" />
-
         <Button Text="Search" 
             Clicked="OnSearchButtonClicked" />
     </StackLayout>
