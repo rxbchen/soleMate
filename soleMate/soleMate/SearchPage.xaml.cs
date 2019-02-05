@@ -24,7 +24,7 @@ namespace soleMate
 
         private async void OnSearchButtonClicked(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new SearchPage());
+            await Navigation.PushAsync(new UnfilteredSearch());
         }
 
         private void ModelSwitchToggled(object sender, ToggledEventArgs e)

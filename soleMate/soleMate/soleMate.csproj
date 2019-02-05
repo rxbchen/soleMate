@@ -20,6 +20,9 @@
     <Compile Update="LoginCredentialsPage.xaml.cs">
       <DependentUpon>LoginCredentialsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="UnfilteredSearch.xaml.cs">
+      <DependentUpon>UnfilteredSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Update="SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
@@ -27,6 +30,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="LoginCredentialsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UnfilteredSearch.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="SearchPage.xaml">
