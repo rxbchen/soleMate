@@ -25,14 +25,14 @@
                 <ColumnDefinition Width="*" />              
             </Grid.ColumnDefinitions>
             
-            <Switch Grid.Row="0" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggled" OnColor="Lime" HorizontalOptions="Center" />
-            <Label  Grid.Row="0" Grid.Column="1" Text="Yeezy {Binding chosen}" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Switch Grid.Row="0" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledYeezy" OnColor="Lime" HorizontalOptions="Center" />
+            <Label x:Name="Yeezy" Grid.Row="0" Grid.Column="1" BindingContext="" Text="Yeezy" VerticalOptions="Center" HorizontalOptions="Center" />
 
-            <Switch Grid.Row="1" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggled" OnColor="Lime" HorizontalOptions="Center" />
-            <Label  Grid.Row="1" Grid.Column="1" Text="Nike" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Switch Grid.Row="1" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledNike" OnColor="Lime" HorizontalOptions="Center" />
+            <Label x:Name="Nike" Grid.Row="1" Grid.Column="1" Text="Nike" VerticalOptions="Center" HorizontalOptions="Center" />
             
-            <Switch Grid.Row="2" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggled" OnColor="Lime" HorizontalOptions="Center" />
-            <Label  Grid.Row="2" Grid.Column="1" Text="Adidas" VerticalOptions="Center" HorizontalOptions="Center" />            
+            <Switch Grid.Row="2" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledAdidas" OnColor="Lime" HorizontalOptions="Center" />
+            <Label x:Name="Adidas" Grid.Row="2" Grid.Column="1" Text="Adidas" VerticalOptions="Center" HorizontalOptions="Center" />            
             
         </Grid>
         
@@ -56,14 +56,14 @@
                 <ColumnDefinition Width="*" />              
             </Grid.ColumnDefinitions>
             
-            <Switch Grid.Row="0" Grid.Column="0" IsToggled="false" OnColor="Lime" HorizontalOptions="Center" />
-            <Label  Grid.Row="0" Grid.Column="1" Text="$1 - $100" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Switch Grid.Row="0" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledTier1" OnColor="Lime" HorizontalOptions="Center" />
+            <Label x:Name="Tier1" Grid.Row="0" Grid.Column="1" Text="$1 - $100" VerticalOptions="Center" HorizontalOptions="Center" />
 
-            <Switch Grid.Row="1" Grid.Column="0" IsToggled="false" OnColor="Lime" HorizontalOptions="Center" />
-            <Label  Grid.Row="1" Grid.Column="1" Text="$101 - $500" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Switch Grid.Row="1" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledTier2" OnColor="Lime" HorizontalOptions="Center" />
+            <Label x:Name="Tier2" Grid.Row="1" Grid.Column="1" Text="$101 - $500" VerticalOptions="Center" HorizontalOptions="Center" />
             
-            <Switch Grid.Row="2" Grid.Column="0" IsToggled="false" OnColor="Lime" HorizontalOptions="Center" />
-            <Label  Grid.Row="2" Grid.Column="1" Text="$500+" VerticalOptions="Center" HorizontalOptions="Center" />            
+            <Switch Grid.Row="2" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledTier3" OnColor="Lime" HorizontalOptions="Center" />
+            <Label x:Name="Tier3" Grid.Row="2" Grid.Column="1" Text="$500+" VerticalOptions="Center" HorizontalOptions="Center" />            
             
         </Grid>        
         

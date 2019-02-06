@@ -21,7 +21,7 @@
       <DependentUpon>LoginCredentialsPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="UnfilteredSearch.xaml.cs">
-      <DependentUpon>UnfilteredSearch.xaml</DependentUpon>
+      <DependentUpon>UnfilteredSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
