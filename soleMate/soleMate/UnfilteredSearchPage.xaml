@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="soleMate.UnfilteredSearchPage">
 
-    <StackLayout x:Name="UnfilteredSearchLayout" >
-        <Label x:Name="SearchResultDescription" Text="{Binding SearchResultText}" 
+    <StackLayout x:Name="UnfilteredSearchLayout">
+        <Label x:Name="SearchResultDescription" Text="{Binding SearchResultText}"
                HorizontalOptions="Center"
                FontSize="Large"
                FontAttributes="Bold"
-               VerticalOptions="Center" />
+               VerticalOptions="Center" />        
     </StackLayout>
-
+    
+    <Grid x:Name="gridLayout"></Grid>
 </ContentPage>

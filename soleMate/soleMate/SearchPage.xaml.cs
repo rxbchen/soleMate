@@ -34,18 +34,18 @@ namespace soleMate {
                 high_price = high_price_range
             };
 
-            // TODO: Make call to data base here
-            var searchResult = new Model.SearchResult {
-                ShoeList = {
-                    new Model.Shoe {id = 123, model = "Yeezy", price = 1000, size = 8, source = "ebay", title = "BEST YEEZY EVER", url = "https://google.com"},
-                    new Model.Shoe {id = 124, model = "Yeezy", price = 200, size = 8, source = "craigslist", title = "YEET YEEZY", url = "https://google.com"},
-                    new Model.Shoe {id = 125, model = "Yeezy", price = 300, size = 8, source = "ebay", title = "EZ YEEZY", url = "https://google.com"},
-                    new Model.Shoe {id = 126, model = "Yeezy", price = 400, size = 8, source = "kijiji", title = "GET YOUR YEEZY", url = "https://google.com"},
-                    new Model.Shoe {id = 127, model = "Yeezy", price = 700, size = 8, source = "craigslist", title = "PRETTY YEEZY", url = "https://google.com"}
-                }
-            };
+            // TO DO: Make call to data base here
+            //var searchResult = new Model.SearchResult {
+            //    ShoeList = {
+            //        new Model.Shoe {id = 123, model = "Yeezy", price = 1000, size = 8, source = "ebay", title = "BEST YEEZY EVER", url = "https://google.com"},
+            //        new Model.Shoe {id = 124, model = "Yeezy", price = 200, size = 8, source = "craigslist", title = "YEET YEEZY", url = "https://google.com"},
+            //        new Model.Shoe {id = 125, model = "Yeezy", price = 300, size = 8, source = "ebay", title = "EZ YEEZY", url = "https://google.com"},
+            //        new Model.Shoe {id = 126, model = "Yeezy", price = 400, size = 8, source = "kijiji", title = "GET YOUR YEEZY", url = "https://google.com"},
+            //        new Model.Shoe {id = 127, model = "Yeezy", price = 700, size = 8, source = "craigslist", title = "PRETTY YEEZY", url = "https://google.com"}
+            //    }
+            //};
 
-            var unfilteredSearchPage = new UnfilteredSearchPage(shoe, searchResult);
+            UnfilteredSearchPage unfilteredSearchPage = new UnfilteredSearchPage(shoe);
             await Navigation.PushAsync(unfilteredSearchPage);
         }
 

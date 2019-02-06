@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace soleMate
@@ -10,39 +11,54 @@ namespace soleMate
         // Constructors
         public UnfilteredSearchPage() {
             InitializeComponent();
+            BindingContext = this;
         }
 
-        public UnfilteredSearchPage(Model.ShoeSearch shoeSearch, Model.SearchResult searchResult) {
+        public UnfilteredSearchPage(Model.ShoeSearch shoeQuery) {
             InitializeComponent();
-            this.shoeSearch = shoeSearch;
-            this.searchResult = searchResult;
+            this.shoeQuery = shoeQuery;
             // TO DO: Refactor cause this is terrible lol
-            if (shoeSearch.high_price > 500) {
-                SearchResultText = $"Showing Search Results for: {shoeSearch.model}, Size {shoeSearch.size}, ${shoeSearch.low_price}-$500+";
+            if (shoeQuery.high_price > 500) {
+                SearchResultText = $"Showing Search Results for: {shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-$500+";
             } else { 
-                SearchResultText = $"Showing Search Results for: {shoeSearch.model}, Size {shoeSearch.size}, ${shoeSearch.low_price}-${shoeSearch.high_price}";
+                SearchResultText = $"Showing Search Results for: {shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
             }
-
             BindingContext = this;
         }
 
         // Private Variables
+        private Model.ShoeSearch shoeQuery = new Model.ShoeSearch();
         private string SearchResultText { get; }
-        private Model.ShoeSearch shoeSearch = new Model.ShoeSearch();
-        private Model.SearchResult searchResult = new Model.SearchResult();
+        //private Model.SearchResult searchResult = new Model.SearchResult();
 
         // Private Methods
-        private void createGrid() {
+        //private void createGrid() {
+        //    int num_shoes = searchResult.ShoeList.Count;
+        //    int num_rows = num_shoes / 2 + num_shoes % 2;
 
-            var grid = new Grid
-            {
-                RowDefinitions = {
+        //    // num_rows Rows
+        //    for (int i = 0; i < num_rows; i++) {
+        //        gridLayout.RowDefinitions.Add(new RowDefinition());
+        //    }
 
-                }
-            };
+        //    // 2 Columns
+        //    gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
+        //    gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
 
-            //UnfilteredSearchLayout.Children.Add();
-        }
+        //    // Populate Grid
+        //    foreach (var shoe in searchResult.ShoeList) { 
+        //        for (int rowIndex = 0; rowIndex < num_rows; rowIndex++) { 
+        //            for (int colIndex = 0; colIndex < 2; colIndex++) {
+        //                var label = new Label {
+        //                    Text = "${shoe.model}",
+        //                    VerticalOptions = LayoutOptions.Center,
+        //                    HorizontalOptions = LayoutOptions.Center
+        //                };
+        //                gridLayout.Children.Add(label, rowIndex, colIndex);
+        //            }
+        //        }
+        //    }
+        //}
 
     }
 }
