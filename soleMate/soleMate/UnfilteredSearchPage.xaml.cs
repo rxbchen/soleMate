@@ -2,21 +2,32 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
+using soleMate.Model;
 
 namespace soleMate
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class UnfilteredSearchPage : ContentPage
 	{
-        // Constructors
+
+        // Public Variables
+        public string SearchResultText { get; }
+
+        // Private Variables
+
+        private ShoeSearch shoeQuery = new ShoeSearch();
+        //private SearchResult searchResult = new SearchResult();
+
+
+        // Constructors 
+
         public UnfilteredSearchPage() {
             InitializeComponent();
             BindingContext = this;
         }
 
-        public UnfilteredSearchPage(Model.ShoeSearch shoeQuery) {
+        public UnfilteredSearchPage(ShoeSearch shoeQuery) {
             InitializeComponent();
-            this.shoeQuery = shoeQuery;
             // TO DO: Refactor cause this is terrible lol
             if (shoeQuery.high_price > 500) {
                 SearchResultText = $"Showing Search Results for: {shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-$500+";
@@ -24,12 +35,8 @@ namespace soleMate
                 SearchResultText = $"Showing Search Results for: {shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
             }
             BindingContext = this;
+            this.shoeQuery = shoeQuery;
         }
-
-        // Private Variables
-        private Model.ShoeSearch shoeQuery = new Model.ShoeSearch();
-        private string SearchResultText { get; }
-        //private Model.SearchResult searchResult = new Model.SearchResult();
 
         // Private Methods
         //private void createGrid() {

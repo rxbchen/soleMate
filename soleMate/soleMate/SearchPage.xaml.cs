@@ -1,4 +1,6 @@
 ﻿using System;
+using soleMate.Model;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,7 +29,7 @@ namespace soleMate {
 
             determinePriceRange();
 
-            var shoe = new Model.ShoeSearch {
+            ShoeSearch shoe = new ShoeSearch {
                 model = model,
                 size = size,
                 low_price = low_price_range,
@@ -35,15 +37,14 @@ namespace soleMate {
             };
 
             // TO DO: Make call to data base here
-            //var searchResult = new Model.SearchResult {
-            //    ShoeList = {
-            //        new Model.Shoe {id = 123, model = "Yeezy", price = 1000, size = 8, source = "ebay", title = "BEST YEEZY EVER", url = "https://google.com"},
-            //        new Model.Shoe {id = 124, model = "Yeezy", price = 200, size = 8, source = "craigslist", title = "YEET YEEZY", url = "https://google.com"},
-            //        new Model.Shoe {id = 125, model = "Yeezy", price = 300, size = 8, source = "ebay", title = "EZ YEEZY", url = "https://google.com"},
-            //        new Model.Shoe {id = 126, model = "Yeezy", price = 400, size = 8, source = "kijiji", title = "GET YOUR YEEZY", url = "https://google.com"},
-            //        new Model.Shoe {id = 127, model = "Yeezy", price = 700, size = 8, source = "craigslist", title = "PRETTY YEEZY", url = "https://google.com"}
-            //    }
-            //};
+            //var searchResult = new SearchResult();
+            //searchResult.ShoeList = new ObservableCollection<Shoe>() {
+                    //new Shoe {id = 123, model = "Yeezy", price = 1000, size = 8, source = "ebay", title = "BEST YEEZY EVER", url = "https://google.com"},
+                    //new Shoe {id = 124, model = "Yeezy", price = 200, size = 8, source = "craigslist", title = "YEET YEEZY", url = "https://google.com"},
+                    //new Shoe {id = 125, model = "Yeezy", price = 300, size = 8, source = "ebay", title = "EZ YEEZY", url = "https://google.com"},
+                    //new Shoe {id = 126, model = "Yeezy", price = 400, size = 8, source = "kijiji", title = "GET YOUR YEEZY", url = "https://google.com"},
+                    //new Shoe {id = 127, model = "Yeezy", price = 700, size = 8, source = "craigslist", title = "PRETTY YEEZY", url = "https://google.com"}
+                    //};
 
             UnfilteredSearchPage unfilteredSearchPage = new UnfilteredSearchPage(shoe);
             await Navigation.PushAsync(unfilteredSearchPage);
