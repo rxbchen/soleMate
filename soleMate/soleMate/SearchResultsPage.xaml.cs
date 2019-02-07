@@ -1,4 +1,4 @@
-﻿using soleMate.Model;
+﻿﻿using soleMate.Model;
 using soleMate.Service.API;
 using System;
 using System.Collections.Generic;
