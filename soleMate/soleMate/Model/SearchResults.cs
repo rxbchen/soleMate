@@ -11,7 +11,7 @@ namespace soleMate.Model
 
         public SearchResult()
         {
-
+            Shoes = new ObservableCollection<Shoe>();
         }
 
     }

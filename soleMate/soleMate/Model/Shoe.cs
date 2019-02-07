@@ -6,13 +6,13 @@ namespace soleMate.Model
 {
     public class Shoe
     {
-        public int id { get; set; }
-        public String model { get; set; }
-        public float size { get; set; }
-        public String url { get; set; }
-        public String source { get; set; }
-        public String title { get; set; }
-        public float price { get; set; }
+        public int Id { get; set; }
+        public String Model { get; set; }
+        public double Size { get; set; }
+        public String Url { get; set; }
+        public String Source { get; set; }
+        public String Title { get; set; }
+        public double Price { get; set; }
 
 
         public Shoe()
