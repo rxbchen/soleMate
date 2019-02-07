@@ -14,7 +14,7 @@ namespace soleMate
         public App()
         {
             InitializeComponent();
-            RestClient = new RestClient("http://localhost:3000");
+            RestClient = new RestClient("http://10.0.2.2:3000");
             // Create initial screen - currently login page
             MainPage = new NavigationPage(new MainPage());
             LoginCredentialsPage = new NavigationPage(new LoginCredentialsPage());

@@ -8,11 +8,11 @@ namespace soleMate.Model
     {
         public int Id { get; set; }
         public String Model { get; set; }
-        public float Size { get; set; }
+        public double Size { get; set; }
         public String Url { get; set; }
         public String Source { get; set; }
         public String Title { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
 
 
         public Shoe()
