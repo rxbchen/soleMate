@@ -1,19 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:soleMate"
              x:Class="soleMate.MainPage"
              Title="SoleM8">
 
-    <StackLayout>
+    <StackLayout Padding="10,139,10,139">
         <!-- Place new controls here -->
         <Label Text="Login" 
                HorizontalOptions="Center"
                FontSize="Large"
                FontAttributes="Bold"
-               VerticalOptions="Center" />
-        <Button Text="Credentials" Clicked="CredentialsButtonClicked" />
-        <Button Text="Facebook" Clicked="FacebookButtonClicked" />
+               VerticalOptions="Center" 
+               Margin="0,0,0,85"/>
+        <Button x:Name="LoginCredentialsButton" Text="Credentials" Clicked="CredentialsButtonClicked" TextColor="White" HorizontalOptions="Center" Margin="0,0,0,30"/>
+        <Button x:Name="LoginFacebookButton" Text="Facebook" Clicked="FacebookButtonClicked" TextColor="White" HorizontalOptions="Center" Margin="0,0,0,57"/>
+        <Label x:Name="NewUserText" Text="Are you a new user?" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center" Margin="0,0,0,12"/>
+        <Button x:Name="SignUpButton" Text="Sign Up" FontSize="Small" Clicked="SignUpButtonClicked" TextColor="White" HorizontalOptions="Center"/>
     </StackLayout>
 
 </ContentPage>
