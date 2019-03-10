@@ -1,10 +1,14 @@
-﻿namespace soleMate {
+namespace soleMate {
     using System;
     using soleMate.Model;
     using System.Collections.ObjectModel;
+    using soleMate.Service.API;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
