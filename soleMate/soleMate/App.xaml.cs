@@ -1,4 +1,4 @@
-﻿using soleMate.Service;
+﻿//using soleMate.Service;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
