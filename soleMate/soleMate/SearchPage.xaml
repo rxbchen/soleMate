@@ -3,72 +3,114 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="soleMate.SearchPage">
 
-    <StackLayout>
+    <StackLayout Padding="50,69,50,69">
         <Label Text="Search" 
                HorizontalOptions="Center"
                FontSize="Large"
                FontAttributes="Bold"
                VerticalOptions="Center" />
-
-        <Label Text="Model"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
         
-        <Grid>
+        <Grid Padding="0,17,0,0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="75" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />  
-                <RowDefinition Height="*" />                
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />              
-            </Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />   
+            </Grid.ColumnDefinitions>  
             
-            <Switch Grid.Row="0" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledYeezy" OnColor="Lime" HorizontalOptions="Center" />
-            <Label x:Name="Yeezy" Grid.Row="0" Grid.Column="1" BindingContext="" Text="Yeezy" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Label Text="Model"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" 
+                   Grid.Row="0" 
+                   Grid.Column="0"
+                   Margin="20,0,0,0" />
+            
+            <Picker x:Name="ModelPicker" 
+                    Title="Choose a Model"
+                    FontSize="Small"
+                    Grid.Row="0"
+                    Grid.Column="1" 
+                    VerticalOptions="CenterAndExpand" />
 
-            <Switch Grid.Row="1" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledNike" OnColor="Lime" HorizontalOptions="Center" />
-            <Label x:Name="Nike" Grid.Row="1" Grid.Column="1" Text="Nike" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Label Text="Size"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" 
+                   Grid.Row="1" 
+                   Grid.Column="0"
+                   Margin="20,0,0,0" />
             
-            <Switch Grid.Row="2" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledAdidas" OnColor="Lime" HorizontalOptions="Center" />
-            <Label x:Name="Adidas" Grid.Row="2" Grid.Column="1" Text="Adidas" VerticalOptions="Center" HorizontalOptions="Center" />            
-            
-        </Grid>
-        
-        <Label Text="Size"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        
-        
-        <Label Text="Price Range"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />  
-                <RowDefinition Height="*" />                
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />              
-            </Grid.ColumnDefinitions>
-            
-            <Switch Grid.Row="0" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledTier1" OnColor="Lime" HorizontalOptions="Center" />
-            <Label x:Name="Tier1" Grid.Row="0" Grid.Column="1" Text="$1 - $100" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Picker x:Name="SizePicker" 
+                    Title="Choose a Size"
+                    FontSize="Small"
+                    Grid.Row="1"
+                    Grid.Column="1" 
+                    VerticalOptions="CenterAndExpand" />
 
-            <Switch Grid.Row="1" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledTier2" OnColor="Lime" HorizontalOptions="Center" />
-            <Label x:Name="Tier2" Grid.Row="1" Grid.Column="1" Text="$101 - $500" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Label Text="Price Range"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start"
+                   Grid.Row="2"
+                   Grid.Column="0"                    
+                   Margin="20,0,0,0" />
             
-            <Switch Grid.Row="2" Grid.Column="0" IsToggled="false" Toggled="ModelSwitchToggledTier3" OnColor="Lime" HorizontalOptions="Center" />
-            <Label x:Name="Tier3" Grid.Row="2" Grid.Column="1" Text="$500+" VerticalOptions="Center" HorizontalOptions="Center" />            
-            
+            <Label x:Name="PriceRangeValue"
+                   Text="$0"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" 
+                   Grid.Row="2"
+                   Grid.Column="1" />              
         </Grid>        
         
-        <Button Text="Search" 
-            Clicked="OnSearchButtonClicked" />
+        <Grid Padding="0,0,0,36">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>  
+            
+            <Label Text="0"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="End" 
+                   Grid.Row="0" 
+                   Grid.Column="0" />
+            
+            <Slider x:Name="PriceSlider"
+                    Maximum="1000"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    ValueChanged="HandlePriceSliderValueChanged" 
+                    VerticalOptions="Center"
+                    HorizontalOptions="StartAndExpand"
+                    WidthRequest="200" 
+                    HeightRequest="30" 
+                    Margin="0,0,0,0" />
+
+            <Label Text="1000+"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start"
+                   Grid.Row="0" 
+                   Grid.Column="2" />            
+        </Grid>        
+        
+        <Button x:Name="SearchButton" 
+                Text="Search" 
+                FontSize="Small"
+                TextColor="White"
+                Clicked="OnSearchButtonClicked" 
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
     </StackLayout>
 
 </ContentPage>

@@ -20,8 +20,6 @@ namespace soleMate
         private ShoeSearch shoeQuery = new ShoeSearch();
         private SearchResult searchResult = new SearchResult();
 
-        private float temp = 10000;
-
         // Constructors 
 
         public UnfilteredSearchPage() {
