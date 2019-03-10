@@ -47,6 +47,13 @@
             ModelPicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             SizePicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             PriceRangeValue.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
+            SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+
+            SearchButton.HeightRequest = Constants.Button.height;
+            SearchButton.WidthRequest = Constants.Button.widthShort;
+
+            PriceSlider.MaximumTrackColor = Color.FromHex(Constants.Slider.maxTrackColour);
+            PriceSlider.MinimumTrackColor = Color.FromHex(Constants.Slider.minTrackColour);
         }
 
         private void HandlePriceSliderValueChanged(object sender, ValueChangedEventArgs args) {

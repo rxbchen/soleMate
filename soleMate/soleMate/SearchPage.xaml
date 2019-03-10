@@ -10,7 +10,7 @@
                FontAttributes="Bold"
                VerticalOptions="Center" />
         
-        <Grid>
+        <Grid Padding="0,17,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="75" />
                 <RowDefinition Height="75" />
@@ -68,23 +68,22 @@
                    Grid.Column="1" />              
         </Grid>        
         
-        <Grid>
+        <Grid Padding="0,0,0,36">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>  
             
             <Label Text="0"
                    FontSize="Small"
                    VerticalOptions="Center" 
-                   HorizontalOptions="EndAndExpand" 
+                   HorizontalOptions="End" 
                    Grid.Row="0" 
-                   Grid.Column="0"
-                   Margin="0,0,20,0" />
+                   Grid.Column="0" />
             
             <Slider x:Name="PriceSlider"
                     Maximum="1000"
@@ -92,19 +91,26 @@
                     Grid.Column="1"
                     ValueChanged="HandlePriceSliderValueChanged" 
                     VerticalOptions="Center"
-                    HorizontalOptions="StartAndExpand"/>
+                    HorizontalOptions="StartAndExpand"
+                    WidthRequest="200" 
+                    HeightRequest="30" 
+                    Margin="0,0,0,0" />
 
             <Label Text="1000+"
                    FontSize="Small"
                    VerticalOptions="Center" 
-                   HorizontalOptions="StartAndExpand" 
+                   HorizontalOptions="Start"
                    Grid.Row="0" 
-                   Grid.Column="2"
-                   Margin="20,0,0,0" />            
+                   Grid.Column="2" />            
         </Grid>        
         
-        <Button Text="Search" 
-                Clicked="OnSearchButtonClicked" />
+        <Button x:Name="SearchButton" 
+                Text="Search" 
+                FontSize="Small"
+                TextColor="White"
+                Clicked="OnSearchButtonClicked" 
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
     </StackLayout>
 
 </ContentPage>
