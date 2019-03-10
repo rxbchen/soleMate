@@ -61,7 +61,7 @@ namespace soleMate {
         }
 
         private void HandlePriceSliderValueChanged(object sender, ValueChangedEventArgs args) {
-            double value = args.NewValue;
+            double value = Math.Round(args.NewValue);
             PriceRangeValue.Text = String.Format("$0 - ${0}", value);
         }
 
