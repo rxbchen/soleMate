@@ -26,7 +26,7 @@ namespace soleMate
             HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
             SearchResult searchResult = await search.GetAllShoes();
 
-            listView.ItemsSource = searchResult.Shoes;
+            listView.ItemsSource = searchResult.ShoeList;
         }
     }
 }

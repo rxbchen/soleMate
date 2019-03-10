@@ -1,5 +1,6 @@
 ﻿//using soleMate.Service;
 using System;
+using soleMate.Service;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

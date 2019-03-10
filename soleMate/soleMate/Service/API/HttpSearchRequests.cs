@@ -42,7 +42,7 @@ namespace soleMate.Service.API
                 {
                     // JToken.ToObject is a helper method that uses JsonSerializer internally
                     Shoe shoe = result.ToObject<Shoe>();
-                    searchResult.Shoes.Add(shoe);
+                    searchResult.ShoeList.Add(shoe);
                 }
             }
 

@@ -33,11 +33,13 @@ namespace soleMate
             InitializeComponent();
 
             // TO DO: Refactor cause this is terrible lol
-            if (shoeQuery.high_price > 500) {
-                SearchResultText = $"Showing Search Results for: {shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-$500+";
-            } else { 
-                SearchResultText = $"Showing Search Results for: {shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
-            }
+            //if (shoeQuery.high_price > 500) {
+            //    SearchResultText = $"Showing Search Results for: {shoeQuery.Model}, Size {shoeQuery.Size}, ${shoeQuery.low_price}-$500+";
+            //} else { 
+            //    SearchResultText = $"Showing Search Results for: {shoeQuery.Model}, Size {shoeQuery.Size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
+            //}
+
+            SearchResultText = $"Showing Search Results for: {shoeQuery.model}, Size {shoeQuery.size}, $1-$500+";
 
             BindingContext = this;
             this.shoeQuery = shoeQuery;
@@ -77,7 +79,7 @@ namespace soleMate
                     };
 
                     var label = new Label {
-                        Text = String.Format("${0}", searchResult.ShoeList[shoeResultNum].price),
+                        Text = String.Format("${0}", searchResult.ShoeList[shoeResultNum].Price),
                         VerticalOptions = LayoutOptions.Center,
                         HorizontalOptions = LayoutOptions.Center
                     };
