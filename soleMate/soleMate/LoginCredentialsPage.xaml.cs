@@ -1,6 +1,5 @@
 ﻿
-namespace soleMate
-{
+namespace soleMate {
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -17,13 +16,11 @@ namespace soleMate
     /// LoginCredentialsPage summary
     /// </summary>
 
-    public partial class LoginCredentialsPage : ContentPage
-	{
+    public partial class LoginCredentialsPage : ContentPage {
 
         // Constructor
 
-		public LoginCredentialsPage ()
-		{
+		public LoginCredentialsPage () {
 			InitializeComponent();
             StylePage();
 		}
@@ -46,8 +43,7 @@ namespace soleMate
             LoginButton.WidthRequest = Constants.Button.widthShort;
         }
 
-        private async void OnLoginButtonClicked(object sender, EventArgs e)
-        {
+        private async void OnLoginButtonClicked(object sender, EventArgs e) {
             await Navigation.PushAsync(new SearchPage());
         }
     }
