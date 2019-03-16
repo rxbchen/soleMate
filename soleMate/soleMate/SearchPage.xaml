@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="soleMate.SearchPage">
 
-    <StackLayout Padding="50,69,50,69">
+    <StackLayout Padding="40,65,40,65">
         <Label Text="Search" 
                HorizontalOptions="Center"
                FontSize="Large"
@@ -34,7 +34,8 @@
                     FontSize="Small"
                     Grid.Row="0"
                     Grid.Column="1" 
-                    VerticalOptions="CenterAndExpand" />
+                    VerticalOptions="CenterAndExpand" 
+                    SelectedIndexChanged="HandleModelSelectedIndexChanged" />
 
             <Label Text="Size"
                    FontSize="Small"
@@ -49,7 +50,8 @@
                     FontSize="Small"
                     Grid.Row="1"
                     Grid.Column="1" 
-                    VerticalOptions="CenterAndExpand" />
+                    VerticalOptions="CenterAndExpand" 
+                    SelectedIndexChanged="HandleSizeSelectedIndexChanged" />
 
             <Label Text="Price Range"
                    FontSize="Small"
@@ -68,7 +70,7 @@
                    Grid.Column="1" />              
         </Grid>        
         
-        <Grid Padding="0,0,0,36">
+        <Grid Padding="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -102,7 +104,33 @@
                    HorizontalOptions="Start"
                    Grid.Row="0" 
                    Grid.Column="2" />            
-        </Grid>        
+        </Grid>
+        
+        <Grid Padding="0,17,0,36">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Label Text="Sort Price"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" 
+                   Grid.Row="0" 
+                   Grid.Column="0"
+                   Margin="20,0,0,0" />
+            
+            <Picker x:Name="SortPricePicker" 
+                    Title="Sort Price By"
+                    FontSize="Small"
+                    Grid.Row="0"
+                    Grid.Column="1" 
+                    VerticalOptions="CenterAndExpand" 
+                    SelectedIndexChanged="HandleSortPriceSelectedIndexChanged" />            
+        </Grid>
         
         <Button x:Name="SearchButton" 
                 Text="Search" 
@@ -111,6 +139,6 @@
                 Clicked="OnSearchButtonClicked" 
                 VerticalOptions="Center"
                 HorizontalOptions="Center" />
-    </StackLayout>
+    </StackLayout>    
 
 </ContentPage>

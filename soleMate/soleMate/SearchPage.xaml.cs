@@ -15,6 +15,10 @@ namespace soleMate {
 
     public partial class SearchPage : ContentPage {
 
+        // Private Variables
+
+        private Search Search { get; set; }
+
         // Constructor
 
         public SearchPage() {
@@ -23,34 +27,13 @@ namespace soleMate {
             StylePage();
         }
 
-        // Private Variables
-
-        private string model = "Yeezy";
-        private int size = 8;
-        private const int lowPriceRange = 0;
-        private int highPriceRange = 100;
-
         // Private Methods
 
         private void IntializeSelectionData() {
-
-            // Model Picker
-
-            var modelList = new List<string>();
-            modelList.Add("Yeezy");
-            modelList.Add("Nike");
-            modelList.Add("Adidas");
-
-            ModelPicker.ItemsSource = modelList;
-
-            // Size Picker
-
-            var shoeSizeList = new List<int>();
-            for (int i=5; i<11; i++) {
-                shoeSizeList.Add(i);
-            }
-
-            SizePicker.ItemsSource = shoeSizeList;
+            Search = new Search();
+            ModelPicker.ItemsSource = Search.ModelList;
+            SizePicker.ItemsSource = Search.ShoeSizeList;
+            SortPricePicker.ItemsSource = Search.SortPriceList;
         }
 
         private void StylePage() {
@@ -59,6 +42,7 @@ namespace soleMate {
 
             ModelPicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             SizePicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
+            SortPricePicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             PriceRangeValue.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
 
@@ -73,18 +57,45 @@ namespace soleMate {
             PriceSlider.MinimumTrackColor = Color.FromHex(Constants.Slider.minTrackColour);
         }
 
+
+        // Picker Events
+
+        private void HandleModelSelectedIndexChanged(object sender, EventArgs args) {
+            Picker picker = sender as Picker;
+            var selectedItem = picker.SelectedItem;
+
+            Search.ChosenModel = (string)selectedItem; //TODO: Refactor to enum?
+        }
+
+        private void HandleSizeSelectedIndexChanged(object sender, EventArgs args) {
+            Picker picker = sender as Picker;
+            var selectedItem = picker.SelectedItem; //TODO: Size is currently int
+
+            Search.ChosenShoeSize = (int)selectedItem;
+        }
+
+        private void HandleSortPriceSelectedIndexChanged(object sender, EventArgs args) {
+            Picker picker = sender as Picker;
+            var selectedItem = picker.SelectedItem; 
+
+            Search.ChosenSorting = (string)selectedItem; //TODO: Refactor to enum?
+        }
+
+        // Slider Event
+
         private void HandlePriceSliderValueChanged(object sender, ValueChangedEventArgs args) {
-            highPriceRange = (int)Math.Round(args.NewValue);
-            PriceRangeValue.Text = String.Format("$0 - ${0}", highPriceRange);
+            Search.ChosenHighPriceRange = (int)Math.Round(args.NewValue);
+            PriceRangeValue.Text = String.Format("$0 - ${0}", Search.ChosenHighPriceRange);
         }
 
         private async void OnSearchButtonClicked(object sender, EventArgs e) {
 
+            //TODO: Include chosen sorting, when calling the database
             ShoeSearch shoe = new ShoeSearch {
-                model = model,
-                size = size,
-                low_price = lowPriceRange,
-                high_price = highPriceRange
+                model = Search.ChosenModel,
+                size = Search.ChosenShoeSize,
+                low_price = Search.ChosenLowPriceRange,
+                high_price = Search.ChosenHighPriceRange
             };
 
             // Calls the GET shoes/ api

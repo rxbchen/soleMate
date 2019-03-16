@@ -3,14 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="soleMate.UnfilteredSearchPage">
 
-    <StackLayout>         
-        <Label Text="{Binding SearchResultText}" 
-               HorizontalOptions="Fill"
-               FontSize="Medium"
-               FontAttributes="Bold"
-               VerticalOptions="Center" />            
-        
-        <Grid x:Name="gridLayout"></Grid>  
+    <StackLayout>
+        <StackLayout Padding="10,10,0,10" BackgroundColor="#E5E5E5"> 
+            <FlexLayout Direction="Row" AlignItems="Start" JustifyContent="Start"> 
+                <Label Text="Showing Results for: " 
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand" />
+                <Label Text="{Binding SearchResultText}" 
+                       FontSize="Medium"
+                       FontAttributes="None"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="EndAndExpand"/>                
+            </FlexLayout>
+            
+            <FlexLayout Direction="Row" AlignItems="Start" JustifyContent="Start"> 
+                <Label Text="Sort Price: " 
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand" />
+                <Label Text="{Binding SortPriceText}" 
+                       FontSize="Medium"
+                       FontAttributes="None"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="StartAndExpand"/>                
+            </FlexLayout>              
+        </StackLayout>      
+
+        <Grid x:Name="gridLayout" Padding="25,35,25,35"></Grid>  
         
     </StackLayout>    
     

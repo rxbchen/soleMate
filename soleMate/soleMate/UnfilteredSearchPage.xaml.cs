@@ -14,6 +14,7 @@ namespace soleMate
         // Public Variables
 
         public string SearchResultText { get; }
+        public string SortPriceText { get; }
 
         // Private Variables
 
@@ -30,24 +31,19 @@ namespace soleMate
         public UnfilteredSearchPage(ShoeSearch shoeQuery, SearchResult searchResult) {
             InitializeComponent();
 
-            // TO DO: Refactor cause this is terrible lol
-            //if (shoeQuery.high_price > 500) {
-            //    SearchResultText = $"Showing Search Results for: {shoeQuery.Model}, Size {shoeQuery.Size}, ${shoeQuery.low_price}-$500+";
-            //} else { 
-            //    SearchResultText = $"Showing Search Results for: {shoeQuery.Model}, Size {shoeQuery.Size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
-            //}
-
-            SearchResultText = $"Showing Search Results for: {shoeQuery.model}, Size {shoeQuery.size}, $1-$500+";
+            SearchResultText = $"{shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
+            SortPriceText = "Lowest"; //TODO: Change to shoeQuery.sortPrice after database talk
 
             BindingContext = this;
             this.shoeQuery = shoeQuery;
             this.searchResult = searchResult;
 
-            createGrid();
+            CreateGrid();
         }
 
         // Private Methods
-        private void createGrid() {
+
+        private void CreateGrid() {
             int num_shoes = searchResult.ShoeList.Count;
             int num_rows = num_shoes / 2 + num_shoes % 2;
 
