@@ -140,6 +140,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\tempImage.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\tempImage.imageset\tempimage.png" />
+    <ImageAsset Include="Assets.xcassets\tempImage.imageset\tempimage-1.png" />
+    <ImageAsset Include="Assets.xcassets\tempImage.imageset\tempimage-2.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -153,8 +157,11 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\soleMate\soleMate.csproj">
-      <Project>{4B672ECF-BFE6-4587-A284-9835F104FE38}</Project>
+      <Project>{43FE72EB-52BF-4B4D-8E54-A5259F926FFD}</Project>
       <Name>soleMate</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\tempImage.imageset\" />
   </ItemGroup>
 </Project>

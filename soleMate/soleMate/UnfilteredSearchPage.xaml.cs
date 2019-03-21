@@ -65,23 +65,49 @@ namespace soleMate
                         break; 
                     }
                      
-
-                    // TO DO: Figure out proper image path
                     var image = new Image
                     {
-                        Source = ImageSource.FromFile(Path.Combine(Directory.GetCurrentDirectory(), @"\Images\tempImage.png"))
+                        Source = ImageSource.FromFile("tempImage.png"),//TODO: Crawler image from URL
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center,
+                        HeightRequest = Constants.SearchItem.imageHeight,
+                        WidthRequest = Constants.SearchItem.imageWidth
+                    };
+
+                    var overlay = new BoxView {
+                        HorizontalOptions = LayoutOptions.Start,
+                        VerticalOptions = LayoutOptions.Start,
+                        HeightRequest = Constants.SearchItem.overlayHeight,
+                        WidthRequest = Constants.SearchItem.outlineWidth,
+                        BackgroundColor = Color.FromHex(Constants.SearchItem.overlayBackgroundColour),
+                        Opacity = 0.5
+                    };
+
+                    var outline = new Frame {
+                        HorizontalOptions = LayoutOptions.Start,
+                        VerticalOptions = LayoutOptions.Start,
+                        HeightRequest = Constants.SearchItem.outlineHeight,
+                        WidthRequest = Constants.SearchItem.outlineWidth,
+                        BorderColor = Color.FromHex(Constants.SearchItem.outlineColour),
+                        HasShadow = false,
+                        Padding = new Thickness(0,0,0,0)
                     };
 
                     var label = new Label {
                         Text = String.Format("${0}", searchResult.ShoeList[shoeResultNum].Price),
-                        VerticalOptions = LayoutOptions.Center,
-                        HorizontalOptions = LayoutOptions.Center
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        TextColor = Color.FromHex(Constants.Text.green),
+                        FontAttributes = FontAttributes.Bold,
+                        Margin = new Thickness(5, 0, 0, 0)
                     };
 
                     shoeResultNum += 1;
 
-                    gridLayout.Children.Add(label, colIndex, rowIndex);
+                    gridLayout.Children.Add(outline, colIndex, rowIndex);
                     gridLayout.Children.Add(image, colIndex, rowIndex);
+                    gridLayout.Children.Add(overlay, colIndex, rowIndex);
+                    gridLayout.Children.Add(label, colIndex, rowIndex);
                 }
             }
         }

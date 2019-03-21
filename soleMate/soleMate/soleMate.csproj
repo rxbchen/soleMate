@@ -50,7 +50,4 @@
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
 </Project>

@@ -25,7 +25,7 @@
             // Models
             ModelList = new List<string> { "Yeezy", "Nike", "Adidas" };
 
-            // Shoe Sizes
+            // Shoe Sizes - Standard Sizes
             ShoeSizeList = new List<int>();
             for (int i = 5; i < 11; i++) {
                 ShoeSizeList.Add(i);

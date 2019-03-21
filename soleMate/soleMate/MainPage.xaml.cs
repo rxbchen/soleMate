@@ -18,7 +18,6 @@
         public MainPage() {
             InitializeComponent();
             StylePage();
-
         }
 
         // Private Methods
