@@ -36,7 +36,9 @@ namespace soleMate.Model {
             public const int outlineWidth = 160;
             public const int outlineHeight = 165;
             public const int overlayHeight = 25;
+            public const double opacity = 0.5;
             public const string outlineColour = "#0C7C59";
+            public const int numberOfTapsRequired = 1;
         }
 
         public static class Text {

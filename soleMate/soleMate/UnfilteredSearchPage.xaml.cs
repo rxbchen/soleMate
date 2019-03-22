@@ -64,15 +64,36 @@ namespace soleMate
                     if (shoeResultNum >= num_shoes) {
                         break; 
                     }
-                     
+
                     var image = new Image
                     {
                         Source = ImageSource.FromFile("tempImage.png"),//TODO: Crawler image from URL
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         HeightRequest = Constants.SearchItem.imageHeight,
-                        WidthRequest = Constants.SearchItem.imageWidth
+                        WidthRequest = Constants.SearchItem.imageWidth,
+                        ClassId = "" + shoeResultNum
                     };
+
+                    TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
+
+                    tapGestureRecognizer.NumberOfTapsRequired = Constants.SearchItem.numberOfTapsRequired;
+                    tapGestureRecognizer.Tapped += async (s, e) => {
+                        var imageSender = (Image)s;
+                        int imageID = Convert.ToInt32(imageSender.ClassId);
+
+                        Console.WriteLine("ID: " + imageID);
+
+                        string action = await DisplayActionSheet("Open in browser?", "Cancel", null, "Yes");
+                        if (action.Equals("Yes")) {
+                            Console.WriteLine("Opening up page");
+                            Device.OpenUri(new Uri(searchResult.ShoeList[imageID].Url));
+                        } 
+
+                    };
+
+
+                    image.GestureRecognizers.Add(tapGestureRecognizer);
 
                     var overlay = new BoxView {
                         HorizontalOptions = LayoutOptions.Start,
@@ -80,7 +101,7 @@ namespace soleMate
                         HeightRequest = Constants.SearchItem.overlayHeight,
                         WidthRequest = Constants.SearchItem.outlineWidth,
                         BackgroundColor = Color.FromHex(Constants.SearchItem.overlayBackgroundColour),
-                        Opacity = 0.5
+                        Opacity = Constants.SearchItem.opacity
                     };
 
                     var outline = new Frame {
@@ -99,7 +120,7 @@ namespace soleMate
                         HorizontalOptions = LayoutOptions.Start,
                         TextColor = Color.FromHex(Constants.Text.green),
                         FontAttributes = FontAttributes.Bold,
-                        Margin = new Thickness(5, 0, 0, 0)
+                        Margin = new Thickness(5, 0, 0, 0),
                     };
 
                     shoeResultNum += 1;
@@ -111,6 +132,5 @@ namespace soleMate
                 }
             }
         }
-
     }
 }
