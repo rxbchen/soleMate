@@ -7,6 +7,7 @@ namespace soleMate.Model
         public float size { get; set; }
         public float low_price { get; set; }
         public float high_price { get; set; }
+        public bool sortLowToHigh { get; set; }
 
         public ShoeSearch()
         {

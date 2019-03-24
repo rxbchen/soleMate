@@ -15,19 +15,37 @@
                            FontAttributes="None"
                            VerticalOptions="CenterAndExpand" 
                            HorizontalOptions="EndAndExpand"/>                
-                </FlexLayout>
+                </FlexLayout>               
                 
-                <FlexLayout Direction="Row" AlignItems="Start" JustifyContent="Start"> 
-                    <Label Text="Sort Price: " 
-                           FontSize="Medium"
-                           FontAttributes="Bold"
-                           VerticalOptions="CenterAndExpand" />
-                    <Label Text="{Binding SortPriceText}" 
-                           FontSize="Medium"
-                           FontAttributes="None"
-                           VerticalOptions="CenterAndExpand" 
-                           HorizontalOptions="StartAndExpand"/>                
-                </FlexLayout>              
+                <Grid x:Name="gridButtonLayout" Padding="25,15,25,0" IsVisible="{Binding ResultsReturned}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="42" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />   
+                    </Grid.ColumnDefinitions>       
+                    
+                    <Picker x:Name="SortPricePicker" 
+                            Title="{Binding SortPriceText}"
+                            FontSize="Small"
+                            TextColor="White"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalOptions="Center"
+                            VerticalOptions="CenterAndExpand" 
+                            SelectedIndexChanged="HandleSortPriceSelectedIndexChanged" />
+                    
+                    <Button x:Name="AddToWatchListButton" 
+                            Text="Add to WatchList" 
+                            FontSize="Small"
+                            TextColor="White"
+                            Grid.Row="0"
+                            Grid.Column="1"                            
+                            Clicked="AddToWatchListButtonClicked" 
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center" />                    
+                </Grid>               
             </StackLayout>      
 
             <Grid x:Name="gridLayout" Padding="25,35,25,35"></Grid>  

@@ -26,7 +26,9 @@ namespace soleMate.Model {
         public static class SearchDefaults {
             public const int lowPriceRange = 0;
             public const int highPriceRange = 100;
-            public const string sortPrice = "Lowest";
+            public const bool sortLowToHigh = true;
+            public const string sortLowestText = "Lowest";
+            public const string sortHighestText = "Highest";
         }
 
         public static class SearchItem {
@@ -43,6 +45,12 @@ namespace soleMate.Model {
 
         public static class Text {
             public const string green = "#0C7C59";
+            public const string red = "#D33F49";
+        }
+
+        public static class EmptyState {
+            public const string searchResultTextMain = "Sorry! No results were found";
+            public const string searchResultTextSecondary = "Please try another search";
         }
     }
 }

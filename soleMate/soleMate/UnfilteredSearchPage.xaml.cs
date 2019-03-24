@@ -15,38 +15,61 @@ namespace soleMate
 
         public string SearchResultText { get; }
         public string SortPriceText { get; }
+        public bool ResultsReturned { get; }
 
         // Private Variables
 
         private ShoeSearch shoeQuery = new ShoeSearch();
         private SearchResult searchResult = new SearchResult();
+        private int num_shoes;
+        private int num_rows;
 
         // Constructors 
 
         public UnfilteredSearchPage() {
             InitializeComponent();
             BindingContext = this;
+            num_shoes = 0;
+            num_rows = 0;
         }
 
+        //TODO: Debug colour difference in Sort Price
         public UnfilteredSearchPage(ShoeSearch shoeQuery, SearchResult searchResult) {
             InitializeComponent();
 
             SearchResultText = $"{shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
-            SortPriceText = "Lowest"; //TODO: Change to shoeQuery.sortPrice after database talk
+
+            if (shoeQuery.sortLowToHigh) {
+                SortPriceText = $"Sort Price: {Constants.SearchDefaults.sortLowestText}";
+            } else {
+                SortPriceText = $"Sort Price: {Constants.SearchDefaults.sortHighestText}";
+            }
+
+            ResultsReturned = searchResult.ShoeList.Count != 0;
+
+            num_shoes = searchResult.ShoeList.Count;
+            num_rows = num_shoes / 2 + num_shoes % 2;
+
 
             BindingContext = this;
             this.shoeQuery = shoeQuery;
             this.searchResult = searchResult;
 
-            CreateGrid();
+            SortPricePicker.ItemsSource = new Search().SortPriceList;
+
+            StylePage();
+
+            if (num_shoes != 0) {
+                CreateGrid();
+            } else {
+                CreateEmptyState();
+            }
+
         }
 
         // Private Methods
 
         private void CreateGrid() {
-            int num_shoes = searchResult.ShoeList.Count;
-            int num_rows = num_shoes / 2 + num_shoes % 2;
-
             // num_rows Rows
             for (int i = 0; i < num_rows; i++) {
                 gridLayout.RowDefinitions.Add(new RowDefinition());
@@ -57,16 +80,28 @@ namespace soleMate
             gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
 
             // Populate Grid
+            PopulateGrid();
+        }
+
+        private void PopulateGrid() {
+
+            // Clear Grid
+
+            if ((gridLayout != null) && (gridLayout.Children != null)) {
+                for (int i = 0; i < gridLayout.Children.Count; i++) {
+                    gridLayout.Children.RemoveAt(i);
+                }
+            }
+
             int shoeResultNum = 0;
-            for (int rowIndex = 0; rowIndex < num_rows; rowIndex++) { 
-                for (int colIndex = 0; colIndex < 2; colIndex++) { 
+            for (int rowIndex = 0; rowIndex < num_rows; rowIndex++) {
+                for (int colIndex = 0; colIndex < 2; colIndex++) {
 
                     if (shoeResultNum >= num_shoes) {
-                        break; 
+                        break;
                     }
 
-                    var image = new Image
-                    {
+                    var image = new Image {
                         Source = ImageSource.FromFile("tempImage.png"),//TODO: Crawler image from URL
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
@@ -88,8 +123,7 @@ namespace soleMate
                         if (action.Equals("Yes")) {
                             Console.WriteLine("Opening up page");
                             Device.OpenUri(new Uri(searchResult.ShoeList[imageID].Url));
-                        } 
-
+                        }
                     };
 
 
@@ -111,7 +145,7 @@ namespace soleMate
                         WidthRequest = Constants.SearchItem.outlineWidth,
                         BorderColor = Color.FromHex(Constants.SearchItem.outlineColour),
                         HasShadow = false,
-                        Padding = new Thickness(0,0,0,0)
+                        Padding = new Thickness(0, 0, 0, 0)
                     };
 
                     var label = new Label {
@@ -131,6 +165,60 @@ namespace soleMate
                     gridLayout.Children.Add(label, colIndex, rowIndex);
                 }
             }
+        }
+
+        private void CreateEmptyState() {
+            gridLayout.RowDefinitions.Add(new RowDefinition());
+            gridLayout.RowDefinitions.Add(new RowDefinition());
+            gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
+
+            var mainText = new Label {
+                Text = Constants.EmptyState.searchResultTextMain,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                TextColor = Color.FromHex(Constants.Text.red),
+                FontAttributes = FontAttributes.Bold
+            };
+
+            var secondaryText = new Label {
+                Text = Constants.EmptyState.searchResultTextSecondary,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            gridLayout.Children.Add(mainText, 0, 0);
+            gridLayout.Children.Add(secondaryText, 0, 1);
+        }
+
+        private void StylePage() {
+            AddToWatchListButton.BackgroundColor = Color.FromHex(Constants.Button.secondaryBackgroundColour);
+            AddToWatchListButton.WidthRequest = Constants.Button.widthShort;
+            AddToWatchListButton.HeightRequest = Constants.Button.height;
+
+            SortPricePicker.HeightRequest = Constants.Button.height;
+            SortPricePicker.WidthRequest = Constants.Button.widthShort;
+            SortPricePicker.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+        }
+
+        private void HandleSortPriceSelectedIndexChanged(object sender, EventArgs args) {
+            Picker picker = sender as Picker;
+            string selectedItem = (string)picker.SelectedItem;
+            string currentlySelected = shoeQuery.sortLowToHigh ? Constants.SearchDefaults.sortLowestText : Constants.SearchDefaults.sortHighestText;
+
+            if (!selectedItem.Equals(currentlySelected)) {
+                bool newSort = !shoeQuery.sortLowToHigh;
+                shoeQuery.sortLowToHigh = newSort;
+
+                // Reverse Sort
+                searchResult.ReverseSorting();
+                PopulateGrid();
+            }
+        }
+
+
+        private void AddToWatchListButtonClicked(object sender, EventArgs e) {
+            //TODO: Populate Wish List
+            Console.WriteLine("Add to Watch List Button Pressed.");
         }
     }
 }

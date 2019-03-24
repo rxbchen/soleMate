@@ -57,7 +57,6 @@ namespace soleMate {
             PriceSlider.MinimumTrackColor = Color.FromHex(Constants.Slider.minTrackColour);
         }
 
-
         // Picker Events
 
         private void HandleModelSelectedIndexChanged(object sender, EventArgs args) {
@@ -76,9 +75,14 @@ namespace soleMate {
 
         private void HandleSortPriceSelectedIndexChanged(object sender, EventArgs args) {
             Picker picker = sender as Picker;
-            var selectedItem = picker.SelectedItem; 
+            string selectedItem = (string)picker.SelectedItem; 
 
-            Search.ChosenSorting = (string)selectedItem; //TODO: Refactor to enum?
+            if (selectedItem.Equals(Constants.SearchDefaults.sortLowestText)) {
+                Search.sortLowToHigh = true;
+            }
+            else {
+                Search.sortLowToHigh = false;
+            }
         }
 
         // Slider Event
@@ -95,7 +99,8 @@ namespace soleMate {
                 model = Search.ChosenModel,
                 size = Search.ChosenShoeSize,
                 low_price = Search.ChosenLowPriceRange,
-                high_price = Search.ChosenHighPriceRange
+                high_price = Search.ChosenHighPriceRange,
+                sortLowToHigh = Search.sortLowToHigh
             };
 
             // Calls the GET shoes/ api
