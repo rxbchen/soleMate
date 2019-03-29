@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Model\searchObject.cs" />
+    <Compile Remove="Model\EmptyCSharpFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="LoginCredentialsPage.xaml.cs">
       <DependentUpon>LoginCredentialsPage.xaml</DependentUpon>
     </Compile>
@@ -45,8 +49,5 @@
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
   </ItemGroup>
 </Project>

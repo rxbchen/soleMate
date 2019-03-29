@@ -15,63 +15,92 @@ namespace soleMate {
 
     public partial class SearchPage : ContentPage {
 
+        // Private Variables
+
+        private Search Search { get; set; }
+
         // Constructor
+
         public SearchPage() {
             InitializeComponent();
             IntializeSelectionData();
             StylePage();
         }
 
-        // Private Variables
-
-        private string model = "Yeezy";
-        private int size = 8;
-        private int low_price_range = 0;
-        private int high_price_range = 100;
-
         // Private Methods
 
         private void IntializeSelectionData() {
-            var modelList = new List<string>();
-            modelList.Add("Yeezy");
-            modelList.Add("Nike");
-            modelList.Add("Adidas");
-
-            ModelPicker.ItemsSource = modelList;
-
-            var shoeSizeList = new List<int>();
-            for (int i=5; i<11; i++) {
-                shoeSizeList.Add(i);
-            }
-
-            SizePicker.ItemsSource = shoeSizeList;
+            Search = new Search();
+            ModelPicker.ItemsSource = Search.ModelList;
+            SizePicker.ItemsSource = Search.ShoeSizeList;
+            SortPricePicker.ItemsSource = Search.SortPriceList;
         }
 
         private void StylePage() {
+
+            // Background Colours
+
             ModelPicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             SizePicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
+            SortPricePicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             PriceRangeValue.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
 
+            // Button Sizes
+
             SearchButton.HeightRequest = Constants.Button.height;
             SearchButton.WidthRequest = Constants.Button.widthShort;
+
+            // Slider Colours
 
             PriceSlider.MaximumTrackColor = Color.FromHex(Constants.Slider.maxTrackColour);
             PriceSlider.MinimumTrackColor = Color.FromHex(Constants.Slider.minTrackColour);
         }
 
+        // Picker Events
+
+        private void HandleModelSelectedIndexChanged(object sender, EventArgs args) {
+            Picker picker = sender as Picker;
+            var selectedItem = picker.SelectedItem;
+
+            Search.ChosenModel = (string)selectedItem; //TODO: Refactor to enum?
+        }
+
+        private void HandleSizeSelectedIndexChanged(object sender, EventArgs args) {
+            Picker picker = sender as Picker;
+            var selectedItem = picker.SelectedItem; //TODO: Size is currently int
+
+            Search.ChosenShoeSize = (int)selectedItem;
+        }
+
+        private void HandleSortPriceSelectedIndexChanged(object sender, EventArgs args) {
+            Picker picker = sender as Picker;
+            string selectedItem = (string)picker.SelectedItem; 
+
+            if (selectedItem.Equals(Constants.SearchDefaults.sortLowestText)) {
+                Search.sortLowToHigh = true;
+            }
+            else {
+                Search.sortLowToHigh = false;
+            }
+        }
+
+        // Slider Event
+
         private void HandlePriceSliderValueChanged(object sender, ValueChangedEventArgs args) {
-            double value = Math.Round(args.NewValue);
-            PriceRangeValue.Text = String.Format("$0 - ${0}", value);
+            Search.ChosenHighPriceRange = (int)Math.Round(args.NewValue);
+            PriceRangeValue.Text = String.Format("$0 - ${0}", Search.ChosenHighPriceRange);
         }
 
         private async void OnSearchButtonClicked(object sender, EventArgs e) {
 
+            //TODO: Include chosen sorting, when calling the database
             ShoeSearch shoe = new ShoeSearch {
-                model = model,
-                size = size,
-                low_price = low_price_range,
-                high_price = high_price_range
+                model = Search.ChosenModel,
+                size = Search.ChosenShoeSize,
+                low_price = Search.ChosenLowPriceRange,
+                high_price = Search.ChosenHighPriceRange,
+                sortLowToHigh = Search.sortLowToHigh
             };
 
             // Calls the GET shoes/ api

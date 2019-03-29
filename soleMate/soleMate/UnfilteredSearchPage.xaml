@@ -2,16 +2,55 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="soleMate.UnfilteredSearchPage">
+    <ScrollView>
+        <StackLayout>
+            <StackLayout Padding="10,10,0,10" BackgroundColor="#E5E5E5"> 
+                <FlexLayout Direction="Row" AlignItems="Start" JustifyContent="Start"> 
+                    <Label Text="Showing Results for: " 
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           VerticalOptions="CenterAndExpand" />
+                    <Label Text="{Binding SearchResultText}" 
+                           FontSize="Medium"
+                           FontAttributes="None"
+                           VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="EndAndExpand"/>                
+                </FlexLayout>               
+                
+                <Grid x:Name="gridButtonLayout" Padding="25,15,25,0" IsVisible="{Binding ResultsReturned}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="42" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />   
+                    </Grid.ColumnDefinitions>       
+                    
+                    <Picker x:Name="SortPricePicker" 
+                            Title="{Binding SortPriceText}"
+                            FontSize="Small"
+                            TextColor="White"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalOptions="Center"
+                            VerticalOptions="CenterAndExpand" 
+                            SelectedIndexChanged="HandleSortPriceSelectedIndexChanged" />
+                    
+                    <Button x:Name="AddToWatchListButton" 
+                            Text="Add to WatchList" 
+                            FontSize="Small"
+                            TextColor="White"
+                            Grid.Row="0"
+                            Grid.Column="1"                            
+                            Clicked="AddToWatchListButtonClicked" 
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center" />                    
+                </Grid>               
+            </StackLayout>      
 
-    <StackLayout>         
-        <Label Text="{Binding SearchResultText}" 
-               HorizontalOptions="Fill"
-               FontSize="Medium"
-               FontAttributes="Bold"
-               VerticalOptions="Center" />            
-        
-        <Grid x:Name="gridLayout"></Grid>  
-        
-    </StackLayout>    
+            <Grid x:Name="gridLayout" Padding="25,35,25,35"></Grid>  
+            
+        </StackLayout>
+    </ScrollView>    
     
 </ContentPage>

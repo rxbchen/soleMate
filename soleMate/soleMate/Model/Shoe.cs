@@ -15,8 +15,7 @@ namespace soleMate.Model
         public double Price { get; set; }
 
 
-        public Shoe()
-        {
+        public Shoe() {
 
         }
     }
