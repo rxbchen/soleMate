@@ -1,14 +1,15 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Xaml;
-using soleMate.Model;
-using System.IO;
-
+﻿
 namespace soleMate
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class UnfilteredSearchPage : ContentPage
+    using System;
+    using Xamarin.Forms;
+    using Xamarin.Forms.Internals;
+    using Xamarin.Forms.Xaml;
+    using soleMate.Model;
+    using System.IO;
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class FilteredSearchResultsPage : ContentPage
 	{
 
         // Public Variables
@@ -23,10 +24,11 @@ namespace soleMate
         private SearchResult searchResult = new SearchResult();
         private int num_shoes;
         private int num_rows;
+        private bool savedWatchList = false;
 
         // Constructors 
 
-        public UnfilteredSearchPage() {
+        public FilteredSearchResultsPage() {
             InitializeComponent();
             BindingContext = this;
             num_shoes = 0;
@@ -34,7 +36,7 @@ namespace soleMate
         }
 
         //TODO: Debug colour difference in Sort Price
-        public UnfilteredSearchPage(ShoeSearch shoeQuery, SearchResult searchResult) {
+        public FilteredSearchResultsPage(ShoeSearch shoeQuery, SearchResult searchResult) {
             InitializeComponent();
 
             SearchResultText = $"{shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
@@ -215,10 +217,21 @@ namespace soleMate
             }
         }
 
+        private async void OnWatchListButtonClicked(object sender, EventArgs e) {
+            await Navigation.PushAsync(new WatchListPage());
+        }
+
 
         private void AddToWatchListButtonClicked(object sender, EventArgs e) {
-            //TODO: Populate Wish List
-            Console.WriteLine("Add to Watch List Button Pressed.");
+            if (!savedWatchList) {
+                //TODO: Populate Wish List
+                // Call /addToWatchist end point with shoeQuery info, on success display alert
+                DisplayAlert("Saved to Watchlist", "", "OK");
+                AddToWatchListButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
+                savedWatchList = true;
+            } else {
+                DisplayAlert("Already Saved to Watchlist", "", "OK");
+            }
         }
     }
 }

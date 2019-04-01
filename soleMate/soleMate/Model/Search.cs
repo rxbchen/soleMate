@@ -14,7 +14,7 @@
         public int ChosenShoeSize { get; set; }
         public int ChosenLowPriceRange { get; set; }
         public int ChosenHighPriceRange { get; set; }
-        public bool sortLowToHigh { get; set; }
+        public bool SortLowToHigh { get; set; }
 
         // Constructor
 
@@ -40,7 +40,7 @@
             ChosenShoeSize = ShoeSizeList.First();
             ChosenLowPriceRange = Constants.SearchDefaults.lowPriceRange;
             ChosenHighPriceRange = Constants.SearchDefaults.highPriceRange;
-            sortLowToHigh = Constants.SearchDefaults.sortLowToHigh;
+            SortLowToHigh = Constants.SearchDefaults.sortLowToHigh;
         }
 
         // Private Methods

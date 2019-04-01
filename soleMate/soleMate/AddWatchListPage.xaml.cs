@@ -1,19 +1,10 @@
-
-namespace soleMate {
+﻿namespace soleMate {
     using System;
-    using soleMate.Model;
-    using System.Collections.ObjectModel;
-    using soleMate.Service.API;
-    using Xamarin.Forms;
-    using Xamarin.Forms.Xaml;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using soleMate.Model;
+    using Xamarin.Forms;
 
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-
-    public partial class SearchPage : ContentPage {
+    public partial class AddWatchList : ContentPage {
 
         // Private Variables
 
@@ -21,7 +12,7 @@ namespace soleMate {
 
         // Constructor
 
-        public SearchPage() {
+        public AddWatchList() {
             InitializeComponent();
             IntializeSelectionData();
             StylePage();
@@ -33,7 +24,6 @@ namespace soleMate {
             Search = new Search();
             ModelPicker.ItemsSource = Search.ModelList;
             SizePicker.ItemsSource = Search.ShoeSizeList;
-            SortPricePicker.ItemsSource = Search.SortPriceList;
         }
 
         private void StylePage() {
@@ -42,15 +32,13 @@ namespace soleMate {
 
             ModelPicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             SizePicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
-            SortPricePicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             PriceRangeValue.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
-            SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
-            WatchListButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+            AddButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
 
             // Button Sizes
 
-            SearchButton.HeightRequest = Constants.Button.height;
-            SearchButton.WidthRequest = Constants.Button.widthShort;
+            AddButton.HeightRequest = Constants.Button.height;
+            AddButton.WidthRequest = Constants.Button.widthShort;
 
             // Slider Colours
 
@@ -76,12 +64,14 @@ namespace soleMate {
 
         private void HandleSortPriceSelectedIndexChanged(object sender, EventArgs args) {
             Picker picker = sender as Picker;
-            string selectedItem = (string)picker.SelectedItem; 
+            string selectedItem = (string)picker.SelectedItem;
 
-            if (selectedItem.Equals(Constants.SearchDefaults.sortLowestText)) {
+            if (selectedItem.Equals(Constants.SearchDefaults.sortLowestText))
+            {
                 Search.SortLowToHigh = true;
             }
-            else {
+            else
+            {
                 Search.SortLowToHigh = false;
             }
         }
@@ -93,26 +83,16 @@ namespace soleMate {
             PriceRangeValue.Text = String.Format("$0 - ${0}", Search.ChosenHighPriceRange);
         }
 
-        private async void OnWatchListButtonClicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new AddWatchList());
+        private void AddButtonClicked(object sender, EventArgs e) {
+            //TODO: Populate Wish List
+            // Call /addToWatchist end point with shoeQuery info, on success display alert
+            DisplayAlert("Saved to Watchlist", "", "OK");
+
+            //TODO: Replace Alert with A pop up page
         }
 
-        private async void OnSearchButtonClicked(object sender, EventArgs e) {
-        
-            ShoeSearch shoe = new ShoeSearch {
-                model = Search.ChosenModel,
-                size = Search.ChosenShoeSize,
-                low_price = Search.ChosenLowPriceRange,
-                high_price = Search.ChosenHighPriceRange,
-                sortLowToHigh = Search.SortLowToHigh
-            };
-
-            // Calls the GET shoes/ api
-            HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
-            SearchResult searchResult = await search.GetAllShoes();
-
-            UnfilteredSearchPage unfilteredSearchPage = new UnfilteredSearchPage(shoe, searchResult);
-            await Navigation.PushAsync(unfilteredSearchPage);
+        private async void OnWatchListButtonClicked(object sender, EventArgs e) {
+            await Navigation.PushAsync(new WatchListPage());
         }
     }
 }
