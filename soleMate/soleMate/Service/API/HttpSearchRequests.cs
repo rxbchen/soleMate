@@ -23,7 +23,7 @@ namespace soleMate.Service.API
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<SearchResult> GetAllShoes ()
+        public async Task<SearchResult> GetAllShoes()
         {
             SearchResult searchResult = new SearchResult();
             // Endpoint
@@ -47,6 +47,35 @@ namespace soleMate.Service.API
             }
 
             return searchResult;
+        }
+
+        public async Task<List<string>> GetSupportedShoes()
+        {
+            List<string> ModelList = new List<string>();
+
+            // Endpoint
+            //String urlParam = "supportedShoes";
+
+            // GET request and wait for success
+            var response = await client.GetAsync("supportedShoes");
+            if (response.IsSuccessStatusCode)
+            {
+                // Since return is "shoe": [{...}] need to parse first
+                var content = await response.Content.ReadAsStringAsync();
+                JObject jsonObject = JObject.Parse(content);
+                JEnumerable<JToken> shoes = jsonObject["shoes"].Children();
+                IList<JToken> shoeModels = shoes["model"].ToList();
+
+                foreach (JToken result in shoeModels)
+                {
+                    // JToken.ToObject is a helper method that uses JsonSerializer internally
+                    // Remove + signs with space
+                    string model = result.ToString().Replace("+", " ");
+                    ModelList.Add(model);
+                }
+            }
+
+            return ModelList;
         }
 
     }

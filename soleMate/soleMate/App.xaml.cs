@@ -15,7 +15,7 @@ namespace soleMate
         public App()
         {
             InitializeComponent();
-            RestClient = new RestClient("http://10.0.2.2:8080");
+            RestClient = new RestClient("https://www.solem8-api-server.info");
             // Create initial screen - currently login page
             MainPage = new NavigationPage(new MainPage());
             LoginCredentialsPage = new NavigationPage(new LoginCredentialsPage());
