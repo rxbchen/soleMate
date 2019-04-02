@@ -21,13 +21,10 @@
         // Constructor
 
         public Search() {
-            //TODO: Call to database to get these values
-            //TODO: Some Constants/Enums need to be implemented
-
 
             // Models
 
-            ModelList = new List<string> { "Yeezy", "Nike", "Adidas" };
+            ModelList = new List<string> { "air jordan", "nike air force", "yeezy", "nike vapor max", "adidas ultra boost" };
 
             // Shoe Sizes - Standard Sizes
             ShoeSizeList = new List<int>();
@@ -55,7 +52,3 @@
         }
     }
 }
-/*
-            //HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
-            //SearchResult searchResult = await search.GetAllShoes();
-*/

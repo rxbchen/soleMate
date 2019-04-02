@@ -104,7 +104,7 @@ namespace soleMate
                     }
 
                     var image = new Image {
-                        Source = ImageSource.FromFile("tempImage.png"),//TODO: Crawler image from URL
+                        Source = DetermineImageSource(shoeResultNum),
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         HeightRequest = Constants.SearchItem.imageHeight,
@@ -118,8 +118,6 @@ namespace soleMate
                     tapGestureRecognizer.Tapped += async (s, e) => {
                         var imageSender = (Image)s;
                         int imageID = Convert.ToInt32(imageSender.ClassId);
-
-                        Console.WriteLine("ID: " + imageID);
 
                         string action = await DisplayActionSheet("Open in browser?", "Cancel", null, "Yes");
                         if (action.Equals("Yes")) {
@@ -136,8 +134,7 @@ namespace soleMate
                         VerticalOptions = LayoutOptions.Start,
                         HeightRequest = Constants.SearchItem.overlayHeight,
                         WidthRequest = Constants.SearchItem.outlineWidth,
-                        BackgroundColor = Color.FromHex(Constants.SearchItem.overlayBackgroundColour),
-                        Opacity = Constants.SearchItem.opacity
+                        BackgroundColor = Color.FromHex(Constants.SearchItem.overlayBackgroundColour)
                     };
 
                     var outline = new Frame {
@@ -154,7 +151,7 @@ namespace soleMate
                         Text = String.Format("${0}", searchResult.ShoeList[shoeResultNum].Price),
                         VerticalOptions = LayoutOptions.Start,
                         HorizontalOptions = LayoutOptions.Start,
-                        TextColor = Color.FromHex(Constants.Text.green),
+                        TextColor = Color.White,
                         FontAttributes = FontAttributes.Bold,
                         Margin = new Thickness(5, 0, 0, 0),
                     };
@@ -192,14 +189,21 @@ namespace soleMate
             gridLayout.Children.Add(secondaryText, 0, 1);
         }
 
-        private void StylePage() {
-            AddToWatchListButton.BackgroundColor = Color.FromHex(Constants.Button.secondaryBackgroundColour);
-            AddToWatchListButton.WidthRequest = Constants.Button.widthShort;
-            AddToWatchListButton.HeightRequest = Constants.Button.height;
+        private ImageSource DetermineImageSource(int imageID) {
+            if (searchResult.ShoeList[imageID].Photo != null) {
+                return searchResult.ShoeList[imageID].Photo;
+            } 
+            else {
+                return ImageSource.FromFile("tempImage.png");
+            }
+        }
 
-            SortPricePicker.HeightRequest = Constants.Button.height;
-            SortPricePicker.WidthRequest = Constants.Button.widthShort;
-            SortPricePicker.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+        private void StylePage() {
+            AddToWatchListButton.TextColor = Color.White;
+            AddToWatchListButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+
+            SortPricePicker.TextColor = Color.White;
+            SortPricePicker.BackgroundColor = Color.FromHex(Constants.Button.thirdBackgroundColour);
         }
 
         private void HandleSortPriceSelectedIndexChanged(object sender, EventArgs args) {

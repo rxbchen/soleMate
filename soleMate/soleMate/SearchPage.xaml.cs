@@ -52,7 +52,12 @@ namespace soleMate {
             SortPricePicker.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             PriceRangeValue.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
-            WatchListButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+
+            // Enabling
+
+            SearchButton.IsEnabled = true;
+            activityIndicator.IsRunning = false;
+            activityIndicator.IsVisible = false;
 
             // Button Sizes
 
@@ -71,12 +76,12 @@ namespace soleMate {
             Picker picker = sender as Picker;
             var selectedItem = picker.SelectedItem;
 
-            Search.ChosenModel = (string)selectedItem; //TODO: Refactor to enum?
+            Search.ChosenModel = (string)selectedItem; 
         }
 
         private void HandleSizeSelectedIndexChanged(object sender, EventArgs args) {
             Picker picker = sender as Picker;
-            var selectedItem = picker.SelectedItem; //TODO: Size is currently int
+            var selectedItem = picker.SelectedItem;
 
             Search.ChosenShoeSize = (int)selectedItem;
         }
@@ -100,12 +105,7 @@ namespace soleMate {
             PriceRangeValue.Text = String.Format("$0 - ${0}", Search.ChosenHighPriceRange);
         }
 
-        private async void OnWatchListButtonClicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new AddWatchList());
-        }
-
-        private async void OnSearchButtonClicked(object sender, EventArgs e) {
-        
+        private void OnSearchButtonClicked(object sender, EventArgs e) {
             ShoeSearch shoe = new ShoeSearch {
                 model = Search.ChosenModel,
                 size = Search.ChosenShoeSize,
@@ -114,12 +114,28 @@ namespace soleMate {
                 sortLowToHigh = Search.SortLowToHigh
             };
 
-            // Calls the GET shoes/ api
-            HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
-            SearchResult searchResult = await search.GetAllShoes();
+            // Load Spinner
 
-            FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
-            await Navigation.PushAsync(unfilteredSearchPage);
+            activityIndicator.IsRunning = true;
+            activityIndicator.IsVisible = true;
+            SearchButton.IsEnabled = false;
+            SearchButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
+
+            // Calls the GET shoes/ api
+            Task.Run(async() => { 
+                try {
+                    HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
+                    SearchResult searchResult = await search.GetShoes(shoe);
+
+                    FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
+                    await Navigation.PushAsync(unfilteredSearchPage);
+                }
+                catch (Exception) {
+                    //TODO: Handle Exception
+                    await DisplayAlert("Sorry, something went wrong", "", "OK");
+                    Console.WriteLine("Exception Met");
+                }
+            });
         }
     }
 }

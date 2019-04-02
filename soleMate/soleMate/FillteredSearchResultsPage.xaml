@@ -1,73 +1,57 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="soleMate.FilteredSearchResultsPage">
-    <StackLayout>
-        <FlexLayout BackgroundColor="#D33F49"
-                    Direction="Row"
-                    AlignItems="Start"
-                    JustifyContent="SpaceBetween">
-            <Button x:Name="WatchListButton" 
-                Text="WatchList" 
-                FontSize="Small"
-                TextColor="White"
-                Clicked="OnWatchListButtonClicked" 
-                VerticalOptions="Center"
-                HorizontalOptions="Start" 
-                Padding="10,0,0,0" />
-            <Label Text=" " 
-                   HorizontalOptions="Center"
-                   FontSize="Large"
-                   TextColor="White"
+             x:Class="soleMate.FilteredSearchResultsPage">   
+    <StackLayout Padding="10,10,10,10" > 
+        <FlexLayout Direction="Column" AlignItems="Start" JustifyContent="Start" BackgroundColor="#E5E5E5" Margin="-10,-10,-10,0" Padding="20,20,0,0"> 
+            <Label Text="Showing Results for: " 
+                   FontSize="Medium"
                    FontAttributes="Bold"
-                   VerticalOptions="Center" /> 
-        </FlexLayout>    
+                   VerticalOptions="CenterAndExpand" />
+            <Label Text="{Binding SearchResultText}" 
+                   FontSize="Medium"
+                   FontAttributes="None"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="EndAndExpand"/>                
+        </FlexLayout>                       
         
-        <StackLayout Padding="10,10,0,10" BackgroundColor="#E5E5E5" Margin="0,-10,0,0"> 
-            <FlexLayout Direction="Row" AlignItems="Start" JustifyContent="Start"> 
-                <Label Text="Showing Results for: " 
-                       FontSize="Medium"
-                       FontAttributes="Bold"
-                       VerticalOptions="CenterAndExpand" />
-                <Label Text="{Binding SearchResultText}" 
-                       FontSize="Medium"
-                       FontAttributes="None"
-                       VerticalOptions="CenterAndExpand" 
-                       HorizontalOptions="EndAndExpand"/>                
-            </FlexLayout>               
+        <ActivityIndicator x:Name="activityIndicator" 
+                           IsEnabled="true"
+                           IsRunning="true"
+                           IsVisible="true"
+                           Color="Black"
+                           HorizontalOptions="Center"
+                           VerticalOptions="CenterAndExpand" />
+        
+        <Grid x:Name="gridButtonLayout" Padding="0,0,0,0" IsVisible="true" Margin="10,0,10,0" ColumnSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />   
+            </Grid.ColumnDefinitions>       
             
-            <Grid x:Name="gridButtonLayout" Padding="25,15,25,0" IsVisible="{Binding ResultsReturned}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="42" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />   
-                </Grid.ColumnDefinitions>       
-                
-                <Picker x:Name="SortPricePicker" 
-                        Title="{Binding SortPriceText}"
-                        FontSize="Small"
-                        TextColor="White"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        HorizontalOptions="Center"
-                        VerticalOptions="CenterAndExpand" 
-                        SelectedIndexChanged="HandleSortPriceSelectedIndexChanged" />
-                
-                <Button x:Name="AddToWatchListButton" 
-                        Text="Add to WatchList" 
-                        FontSize="Small"
-                        TextColor="White"
-                        Grid.Row="0"
-                        Grid.Column="1"                            
-                        Clicked="AddToWatchListButtonClicked" 
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center" />                    
-            </Grid>               
-        </StackLayout>              
+            <Picker x:Name="SortPricePicker" 
+                    Title="{Binding SortPriceText}"
+                    FontSize="Small"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand" 
+                    SelectedIndexChanged="HandleSortPriceSelectedIndexChanged" />
+            
+            <Button x:Name="AddToWatchListButton" 
+                    Text="Add to WatchList" 
+                    FontSize="Small"
+                    Grid.Row="0"
+                    Grid.Column="1"                            
+                    Clicked="AddToWatchListButtonClicked" 
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand" />                    
+        </Grid>                            
         <ScrollView>
-            <Grid x:Name="gridLayout" Padding="25,35,25,35"></Grid>  
+            <Grid x:Name="gridLayout" Padding="25,35,25,35" ColumnSpacing="10"></Grid>  
         </ScrollView>    
     </StackLayout>
 </ContentPage>

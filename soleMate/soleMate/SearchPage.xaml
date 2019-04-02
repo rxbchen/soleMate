@@ -1,165 +1,144 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="soleMate.SearchPage">
-    
-    <StackLayout>
-        <FlexLayout BackgroundColor="#D33F49"
-                    Direction="Row"
-                    AlignItems="Start"
-                    JustifyContent="SpaceBetween">
-            <Button x:Name="WatchListButton" 
-                Text="WatchList" 
+             x:Class="soleMate.SearchPage">   
+    <StackLayout Padding="40,65,40,65">
+        <Label Text="Search" 
+               HorizontalOptions="Center"
+               FontSize="Large"
+               FontAttributes="Bold"
+               VerticalOptions="Center" />
+        
+        <Grid Padding="0,17,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="75" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />   
+            </Grid.ColumnDefinitions>  
+            
+            <Label Text="Model"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" 
+                   Grid.Row="0" 
+                   Grid.Column="0"
+                   Margin="20,0,0,0" />
+            
+            <Picker x:Name="ModelPicker" 
+                    Title="Choose a Model"
+                    FontSize="Small"
+                    Grid.Row="0"
+                    Grid.Column="1" 
+                    VerticalOptions="CenterAndExpand" 
+                    SelectedIndexChanged="HandleModelSelectedIndexChanged" />
+
+            <Label Text="Size"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" 
+                   Grid.Row="1" 
+                   Grid.Column="0"
+                   Margin="20,0,0,0" />
+            
+            <Picker x:Name="SizePicker" 
+                    Title="Choose a Size"
+                    FontSize="Small"
+                    Grid.Row="1"
+                    Grid.Column="1" 
+                    VerticalOptions="CenterAndExpand" 
+                    SelectedIndexChanged="HandleSizeSelectedIndexChanged" />
+
+            <Label Text="Price Range"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start"
+                   Grid.Row="2"
+                   Grid.Column="0"                    
+                   Margin="20,0,0,0" />
+            
+            <Label x:Name="PriceRangeValue"
+                   Text="$0"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" 
+                   Grid.Row="2"
+                   Grid.Column="1" />              
+        </Grid>        
+        
+        <Grid Padding="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>  
+            
+            <Label Text="0"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="End" 
+                   Grid.Row="0" 
+                   Grid.Column="0" />
+            
+            <Slider x:Name="PriceSlider"
+                    Maximum="1000"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    ValueChanged="HandlePriceSliderValueChanged" 
+                    VerticalOptions="Center"
+                    HorizontalOptions="StartAndExpand"
+                    WidthRequest="200" 
+                    HeightRequest="30" 
+                    Margin="0,0,0,0" />
+
+            <Label Text="1000+"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start"
+                   Grid.Row="0" 
+                   Grid.Column="2" />            
+        </Grid>
+        
+        <Grid Padding="0,17,0,36">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Label Text="Sort Price"
+                   FontSize="Small"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" 
+                   Grid.Row="0" 
+                   Grid.Column="0"
+                   Margin="20,0,0,0" />
+            
+            <Picker x:Name="SortPricePicker" 
+                    Title="Sort Price By"
+                    FontSize="Small"
+                    Grid.Row="0"
+                    Grid.Column="1" 
+                    VerticalOptions="CenterAndExpand" 
+                    SelectedIndexChanged="HandleSortPriceSelectedIndexChanged" />            
+        </Grid>
+        
+        <Button x:Name="SearchButton" 
+                Text="Search" 
                 FontSize="Small"
                 TextColor="White"
-                Clicked="OnWatchListButtonClicked" 
+                Clicked="OnSearchButtonClicked" 
                 VerticalOptions="Center"
-                HorizontalOptions="Start" 
-                Padding="10,0,0,0" />
-            <Label Text=" " 
-                   HorizontalOptions="Center"
-                   FontSize="Large"
-                   TextColor="White"
-                   FontAttributes="Bold"
-                   VerticalOptions="Center" /> 
-        </FlexLayout>    
+                HorizontalOptions="Center" />
         
-        <StackLayout Padding="40,65,40,65">
-            <Label Text="Search" 
-                   HorizontalOptions="Center"
-                   FontSize="Large"
-                   FontAttributes="Bold"
-                   VerticalOptions="Center" />
-            
-            <Grid Padding="0,17,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="75" />
-                    <RowDefinition Height="75" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />   
-                </Grid.ColumnDefinitions>  
-                
-                <Label Text="Model"
-                       FontSize="Small"
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start" 
-                       Grid.Row="0" 
-                       Grid.Column="0"
-                       Margin="20,0,0,0" />
-                
-                <Picker x:Name="ModelPicker" 
-                        Title="Choose a Model"
-                        FontSize="Small"
-                        Grid.Row="0"
-                        Grid.Column="1" 
-                        VerticalOptions="CenterAndExpand" 
-                        SelectedIndexChanged="HandleModelSelectedIndexChanged" />
-
-                <Label Text="Size"
-                       FontSize="Small"
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start" 
-                       Grid.Row="1" 
-                       Grid.Column="0"
-                       Margin="20,0,0,0" />
-                
-                <Picker x:Name="SizePicker" 
-                        Title="Choose a Size"
-                        FontSize="Small"
-                        Grid.Row="1"
-                        Grid.Column="1" 
-                        VerticalOptions="CenterAndExpand" 
-                        SelectedIndexChanged="HandleSizeSelectedIndexChanged" />
-
-                <Label Text="Price Range"
-                       FontSize="Small"
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start"
-                       Grid.Row="2"
-                       Grid.Column="0"                    
-                       Margin="20,0,0,0" />
-                
-                <Label x:Name="PriceRangeValue"
-                       Text="$0"
-                       FontSize="Small"
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start" 
-                       Grid.Row="2"
-                       Grid.Column="1" />              
-            </Grid>        
-            
-            <Grid Padding="0,0,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="200" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>  
-                
-                <Label Text="0"
-                       FontSize="Small"
-                       VerticalOptions="Center" 
-                       HorizontalOptions="End" 
-                       Grid.Row="0" 
-                       Grid.Column="0" />
-                
-                <Slider x:Name="PriceSlider"
-                        Maximum="1000"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        ValueChanged="HandlePriceSliderValueChanged" 
-                        VerticalOptions="Center"
-                        HorizontalOptions="StartAndExpand"
-                        WidthRequest="200" 
-                        HeightRequest="30" 
-                        Margin="0,0,0,0" />
-
-                <Label Text="1000+"
-                       FontSize="Small"
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start"
-                       Grid.Row="0" 
-                       Grid.Column="2" />            
-            </Grid>
-            
-            <Grid Padding="0,17,0,36">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                
-                <Label Text="Sort Price"
-                       FontSize="Small"
-                       VerticalOptions="Center" 
-                       HorizontalOptions="Start" 
-                       Grid.Row="0" 
-                       Grid.Column="0"
-                       Margin="20,0,0,0" />
-                
-                <Picker x:Name="SortPricePicker" 
-                        Title="Sort Price By"
-                        FontSize="Small"
-                        Grid.Row="0"
-                        Grid.Column="1" 
-                        VerticalOptions="CenterAndExpand" 
-                        SelectedIndexChanged="HandleSortPriceSelectedIndexChanged" />            
-            </Grid>
-            
-            <Button x:Name="SearchButton" 
-                    Text="Search" 
-                    FontSize="Small"
-                    TextColor="White"
-                    Clicked="OnSearchButtonClicked" 
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center" />
-        </StackLayout>    
-    </StackLayout>
+        <ActivityIndicator x:Name="activityIndicator" IsEnabled="true"/>
+    </StackLayout>      
 </ContentPage>

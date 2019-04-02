@@ -13,6 +13,7 @@ namespace soleMate.Model
         public String Source { get; set; }
         public String Title { get; set; }
         public double Price { get; set; }
+        public String Photo { get; set; }
 
 
         public Shoe() {

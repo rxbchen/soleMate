@@ -10,6 +10,7 @@ namespace soleMate.Model {
             public const int height = 42;
             public const string mainBackgroundColour = "#D33F49";
             public const string secondaryBackgroundColour = "#0C7C59";
+            public const string thirdBackgroundColour = "#FED766";
             public const string disabled = "#50514F";
         }
 
@@ -33,14 +34,13 @@ namespace soleMate.Model {
         }
 
         public static class SearchItem {
-            public const string overlayBackgroundColour = "#E5E5E5";
+            public const string overlayBackgroundColour = "#D33F49";
             public const int imageWidth = 140;
             public const int imageHeight = 140;
             public const int outlineWidth = 160;
             public const int outlineHeight = 165;
             public const int overlayHeight = 25;
-            public const double opacity = 0.5;
-            public const string outlineColour = "#0C7C59";
+            public const string outlineColour = "#D33F49";
             public const int numberOfTapsRequired = 1;
         }
 

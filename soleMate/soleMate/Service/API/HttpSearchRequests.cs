@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace soleMate.Service.API
 {
@@ -23,15 +24,30 @@ namespace soleMate.Service.API
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<SearchResult> GetAllShoes()
+        public async Task<SearchResult> GetShoes(ShoeSearch shoeSearch)
         {
             SearchResult searchResult = new SearchResult();
-            // Endpoint
-            String urlParam = "shoes";
+
+            if (shoeSearch == null) {
+                throw new Exception("ShoeSearch not found");
+            }
+
+            // Create Payload
+            var query = HttpUtility.ParseQueryString(string.Empty);
+            query["model"] = shoeSearch.model;
+            query["size"] = shoeSearch.size.ToString();
+            query["priceMin"] = shoeSearch.low_price.ToString();
+            query["priceMax"] = shoeSearch.high_price.ToString();
+            query["sortLowHigh"] = shoeSearch.sortLowToHigh.ToString();
+
+            string queryString = "shoes?"+ query;
+            Console.WriteLine("queryString");
+            Console.WriteLine(queryString);
 
             // GET request and wait for success
-            var response = await client.GetAsync(urlParam);
-            if(response.IsSuccessStatusCode)
+            var response = await client.GetAsync(queryString);
+
+            if (response.IsSuccessStatusCode)
             {
                 // Since return is "shoe": [{...}] need to parse first
                 var content = await response.Content.ReadAsStringAsync();
@@ -77,6 +93,5 @@ namespace soleMate.Service.API
 
             return ModelList;
         }
-
     }
 }

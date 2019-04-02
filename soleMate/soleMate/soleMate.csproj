@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Remove="Model\searchObject.cs" />
     <Compile Remove="Model\EmptyCSharpFile.cs" />
+    <Compile Remove="SearchResultsPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="LoginCredentialsPage.xaml.cs">
@@ -33,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="SearchResultsPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="LoginCredentialsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -40,9 +44,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="SearchPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="SearchResultsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
