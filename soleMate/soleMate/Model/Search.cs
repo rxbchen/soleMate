@@ -26,38 +26,8 @@
 
 
             // Models
-            GetSupportedShoes();
 
-            //GetSupportedShoes().ContinueWith(async (model) => {
-            //    ModelList = await model;
-            //    Console.WriteLine("Get Supported Shoes called---------------");
-            //    Console.WriteLine(ModelList);
-
-            //    //ModelList = new List<string> { "Yeezy", "Nike", "Adidas" };
-
-            //    // Shoe Sizes - Standard Sizes
-            //    ShoeSizeList = new List<int>();
-            //    for (int i = 5; i < 11; i++)
-            //    {
-            //        ShoeSizeList.Add(i);
-            //    }
-
-            //    // Sort Price
-            //    SortPriceList = new List<string> { Constants.SearchDefaults.sortLowestText, Constants.SearchDefaults.sortHighestText };
-
-            //    // Defaults for Chosen
-            //    ChosenModel = ModelList.First();
-            //    ChosenShoeSize = ShoeSizeList.First();
-            //    ChosenShoeSize = ShoeSizeList.First();
-            //    ChosenLowPriceRange = Constants.SearchDefaults.lowPriceRange;
-            //    ChosenHighPriceRange = Constants.SearchDefaults.highPriceRange;
-            //    SortLowToHigh = Constants.SearchDefaults.sortLowToHigh;
-            //});
-
-            Console.WriteLine("Get Supported Shoes called---------------");
-            Console.WriteLine(ModelList);
-
-            //ModelList = new List<string> { "Yeezy", "Nike", "Adidas" };
+            ModelList = new List<string> { "Yeezy", "Nike", "Adidas" };
 
             // Shoe Sizes - Standard Sizes
             ShoeSizeList = new List<int>();
@@ -82,11 +52,6 @@
 
         private void UpdateSearchData() { 
             //Make a call to database
-        }
-
-        public async void GetSupportedShoes() {
-            HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
-            ModelList = await search.GetSupportedShoes();
         }
     }
 }

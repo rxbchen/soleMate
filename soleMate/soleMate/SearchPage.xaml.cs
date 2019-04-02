@@ -27,6 +27,13 @@ namespace soleMate {
             StylePage();
         }
 
+        protected async override void OnAppearing() {
+            base.OnAppearing();
+            HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
+            Search.ModelList = await search.GetSupportedShoes();
+            ModelPicker.ItemsSource = Search.ModelList;
+        }
+
         // Private Methods
 
         private void IntializeSelectionData() {
@@ -111,7 +118,7 @@ namespace soleMate {
             HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
             SearchResult searchResult = await search.GetAllShoes();
 
-            UnfilteredSearchPage unfilteredSearchPage = new UnfilteredSearchPage(shoe, searchResult);
+            FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
             await Navigation.PushAsync(unfilteredSearchPage);
         }
     }
