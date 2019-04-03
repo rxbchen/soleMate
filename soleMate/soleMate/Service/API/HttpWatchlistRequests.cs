@@ -48,5 +48,32 @@
             return addedToWatchList;
 
         }
+
+        public async Task<List<WatchListItem>> GetWatchlist(string cUsername)
+        {
+            List<WatchListItem> WatchlistList = new List<WatchListItem>();
+            // Create the payload
+            JObject jsonData = new JObject(new JProperty("username", cUsername));
+            var content = new StringContent(JsonConvert.SerializeObject(jsonData), Encoding.UTF8, "application/json");
+            // Debugging
+            Console.WriteLine(content);
+            var result = await client.PostAsync("watchlist", content);
+            if (result.IsSuccessStatusCode)
+            {
+                // Since return is "watchlist": [{...}] need to parse first
+                var data = await result.Content.ReadAsStringAsync();
+                JObject jsonObject = JObject.Parse(data);
+                IList<JToken> watchlistItems = jsonObject["watchlist"].Children().ToList();
+
+                foreach (JToken watchlistItem in watchlistItems)
+                {
+                    WatchListItem item = watchlistItem.ToObject<WatchListItem>();
+                    WatchlistList.Add(item);
+                }
+            }
+            // Debugging
+            Console.WriteLine(WatchlistList); 
+            return WatchlistList;
+        }
     }
 }

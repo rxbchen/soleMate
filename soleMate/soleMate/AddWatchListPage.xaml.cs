@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using soleMate.Model;
     using Xamarin.Forms;
+    using Xamarin.Forms.Xaml;
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 
     public partial class AddWatchList : ContentPage {
 
@@ -10,6 +13,8 @@
 
         private Search Search { get; set; }
         private CredentialsAuthentication auth;
+        private bool modelSelected = false;
+        private bool sizeSelected = false;
 
         // Constructor
 
@@ -37,6 +42,11 @@
             PriceRangeValue.BackgroundColor = Color.FromHex(Constants.InputField.backgroundColour);
             AddButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
 
+            // Enable
+            AddButton.IsEnabled = true;
+            activityIndicator.IsRunning = false;
+            activityIndicator.IsVisible = false;
+
             // Button Sizes
 
             AddButton.HeightRequest = Constants.Button.height;
@@ -51,6 +61,7 @@
         // Picker Events
 
         private void HandleModelSelectedIndexChanged(object sender, EventArgs args) {
+            modelSelected = true;
             Picker picker = sender as Picker;
             var selectedItem = picker.SelectedItem;
 
@@ -58,6 +69,7 @@
         }
 
         private void HandleSizeSelectedIndexChanged(object sender, EventArgs args) {
+            sizeSelected = true;
             Picker picker = sender as Picker;
             var selectedItem = picker.SelectedItem; //TODO: Size is currently int
 
@@ -85,12 +97,30 @@
             PriceRangeValue.Text = String.Format("$0 - ${0}", Search.ChosenHighPriceRange);
         }
 
-        private void AddButtonClicked(object sender, EventArgs e) {
-            //TODO: Populate Wish List
-            // Call /addToWatchist end point with shoeQuery info, on success display alert
-            DisplayAlert("Saved to Watchlist", "", "OK");
+        private async void AddButtonClicked(object sender, EventArgs e) {
+            // Validate fields are not empty
+            if (!(modelSelected && sizeSelected)) {
+                await DisplayAlert("Inputs are Missing", "Please make sure 'Model', and 'Size' are populated", "OK");
+            }
+            else{
+                // Load Spinner
 
-            //TODO: Replace Alert with A pop up page
+                activityIndicator.IsRunning = true;
+                activityIndicator.IsVisible = true;
+                AddButton.IsEnabled = false;
+                AddButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
+
+                //TODO: Populate Wish List
+                // Call /addToWatchist end point with shoeQuery info, on success display alert
+                await DisplayAlert("Saved to Watchlist", "", "OK");
+
+                activityIndicator.IsRunning = false;
+                activityIndicator.IsVisible = false;
+                AddButton.IsEnabled = true;
+                AddButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+
+                //TODO: Replace Alert with A pop up page
+            }
         }
 
         private async void OnWatchListButtonClicked(object sender, EventArgs e) {

@@ -94,34 +94,25 @@ namespace soleMate.Service.API
             return ModelList;
         }
 
-        //TODO: Actually implement properly
-        public async Task<List<string>> GetWishList()
+        public async Task<bool> AddToWatchList(string cUsername, string cPassword)
         {
-            List<string> WishList = new List<string>();
-
-            // Endpoint
-            //String urlParam = "supportedShoes";
-
-            // GET request and wait for success
-            var response = await client.GetAsync("wishList");
-            if (response.IsSuccessStatusCode)
+            bool isAuth = false;
+            // Create the payload
+            JObject jsonData = new JObject(
+                new JProperty("username", cUsername),
+                new JProperty("password", cPassword));
+            var content = new StringContent(JsonConvert.SerializeObject(jsonData), Encoding.UTF8, "application/json");
+            // Debugging
+            Console.WriteLine(content);
+            var result = await client.PostAsync("login", content);
+            if (result.IsSuccessStatusCode)
             {
-                // Since return is "shoe": [{...}] need to parse first
-                var content = await response.Content.ReadAsStringAsync();
-                JObject jsonObject = JObject.Parse(content);
-                JEnumerable<JToken> shoes = jsonObject["shoes"].Children();
-                IList<JToken> shoeModels = shoes["model"].ToList();
-
-                foreach (JToken result in shoeModels)
-                {
-                    // JToken.ToObject is a helper method that uses JsonSerializer internally
-                    // Remove + signs with space
-                    string model = result.ToString().Replace("+", " ");
-                    WishList.Add(model);
-                }
+                Console.WriteLine(result.IsSuccessStatusCode);
+                var response = await result.Content.ReadAsStringAsync();
+                JObject jsonObject = JObject.Parse(response);
+                isAuth = (bool)jsonObject["auth"];
             }
-
-            return WishList;
+            return isAuth;
         }
     }
 }
