@@ -1,6 +1,4 @@
-﻿
-namespace soleMate
-{
+﻿namespace soleMate {
     using System;
     using Xamarin.Forms;
     using Xamarin.Forms.Internals;
@@ -9,8 +7,7 @@ namespace soleMate
     using System.IO;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilteredSearchResultsPage : ContentPage
-	{
+	public partial class FilteredSearchResultsPage : ContentPage {
 
         // Public Variables
 

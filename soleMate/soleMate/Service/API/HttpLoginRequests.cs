@@ -24,7 +24,7 @@ namespace soleMate.Service.API
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        // This might change depending what we want to get back from the backend
+        //TODO: Complete below
         public async Task<bool> Login(string cUsername, string cPassword)
         {
             bool isAuth = false;
