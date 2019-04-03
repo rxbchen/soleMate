@@ -95,34 +95,34 @@ namespace soleMate.Service.API
         }
 
         //TODO: Actually implement properly
-        public async Task<List<string>> GetWishList()
-        {
-            List<string> WishList = new List<string>();
+        //public async Task<List<string>> GetWishList()
+        //{
+        //    List<string> WishList = new List<string>();
 
-            // Endpoint
-            //String urlParam = "supportedShoes";
+        //    // Endpoint
+        //    //String urlParam = "supportedShoes";
 
-            // GET request and wait for success
-            var response = await client.GetAsync("wishList");
-            if (response.IsSuccessStatusCode)
-            {
-                // Since return is "shoe": [{...}] need to parse first
-                var content = await response.Content.ReadAsStringAsync();
-                JObject jsonObject = JObject.Parse(content);
-                JEnumerable<JToken> shoes = jsonObject["shoes"].Children();
-                IList<JToken> shoeModels = shoes["model"].ToList();
+        //    // GET request and wait for success
+        //    var response = await client.GetAsync("wishList");
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        // Since return is "shoe": [{...}] need to parse first
+        //        var content = await response.Content.ReadAsStringAsync();
+        //        JObject jsonObject = JObject.Parse(content);
+        //        JEnumerable<JToken> shoes = jsonObject["shoes"].Children();
+        //        IList<JToken> shoeModels = shoes["model"].ToList();
 
-                foreach (JToken result in shoeModels)
-                {
-                    // JToken.ToObject is a helper method that uses JsonSerializer internally
-                    // Remove + signs with space
-                    string model = result.ToString().Replace("+", " ");
-                    WishList.Add(model);
-                }
-            }
+        //        foreach (JToken result in shoeModels)
+        //        {
+        //            // JToken.ToObject is a helper method that uses JsonSerializer internally
+        //            // Remove + signs with space
+        //            string model = result.ToString().Replace("+", " ");
+        //            WishList.Add(model);
+        //        }
+        //    }
 
-            return WishList;
-        }
+        //    return WishList;
+        //}
 
         public async Task<bool> AddToWatchList(string cUsername, string cPassword)
         {
