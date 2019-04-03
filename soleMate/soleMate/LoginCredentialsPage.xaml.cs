@@ -44,6 +44,11 @@ namespace soleMate {
         }
 
         private async void OnLoginButtonClicked(object sender, EventArgs e) {
+
+            // Load Spinner
+            activityIndicator.IsRunning = true;
+            activityIndicator.IsVisible = true;
+
             bool isAuth = false;
             CredentialsAuthentication auth = new CredentialsAuthentication(UsernameField.Text, PasswordField.Text);
             if (Constants.LoginButton.loginAttempts >= 3)
@@ -57,12 +62,17 @@ namespace soleMate {
                 isAuth = await auth.ValidateUserAsync();
                 if (isAuth)
                 {
+                    Constants.LoginButton.loginAttempts = 0;
+                    activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
                     await Navigation.PushAsync(new SearchPage());
                 }
                 else
                 {
                     Constants.LoginButton.loginAttempts++;
                     await DisplayAlert("Invalid username/password!", "", "OK");
+                    activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
                 }
             }
 
