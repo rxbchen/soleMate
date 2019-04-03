@@ -140,5 +140,14 @@ namespace soleMate {
                 Console.WriteLine("Exception Met");
             }
         }
+
+        private async void WatchListClicked(object sender, EventArgs e) {
+            await Navigation.PushAsync(new WatchListPage());
+        }
+
+        private async void LogoutButtonClicked(object sender, EventArgs e) {
+            await Navigation.PopToRootAsync();
+            await Navigation.PushAsync(new SearchPage());
+        }
     }
 }

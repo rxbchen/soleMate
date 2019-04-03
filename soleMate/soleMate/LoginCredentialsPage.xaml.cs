@@ -44,8 +44,7 @@ namespace soleMate {
         }
 
         private async void OnLoginButtonClicked(object sender, EventArgs e) {
-            //await Navigation.PushAsync(new SearchPage());
-            await Navigation.PushAsync(new WatchListPage()); //TODO: Change back
+            await Navigation.PushAsync(new SearchPage());
         }
     }
 }

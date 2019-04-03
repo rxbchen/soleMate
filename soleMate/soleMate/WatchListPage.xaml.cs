@@ -1,6 +1,7 @@
 ﻿namespace soleMate {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using soleMate.Model;
     using soleMate.Service.API;
@@ -48,7 +49,7 @@
                     //HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
                     //SearchResult searchResult = await search.GetWishList();
                 } 
-                catch (Exception e){
+                catch {
                     await DisplayAlert("Sorry, something went wrong", "", "OK");
                     Console.WriteLine("Exception Met");
                 }
@@ -150,6 +151,13 @@
             await Navigation.PushAsync(new AddWatchList());
         }
 
+        private async void SearchPageClicked(object sender, EventArgs e) {
+            await Navigation.PushAsync(new SearchPage());
+        }
 
+        private async void LogoutButtonClicked(object sender, EventArgs e) {
+            await Navigation.PopToRootAsync();
+            await Navigation.PushAsync(new SearchPage());
+        }
     }
 }

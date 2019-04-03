@@ -3,6 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="soleMate.AddWatchList">
     
+<ContentPage.ToolbarItems>
+    <ToolbarItem Name="Logout" Order="Primary" Text="Logout" Priority="0" Clicked="LogoutButtonClicked" />
+</ContentPage.ToolbarItems>    
+    
  <StackLayout>
         <FlexLayout BackgroundColor="#D33F49"
                     Direction="Row"

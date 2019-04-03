@@ -220,10 +220,14 @@ namespace soleMate
             }
         }
 
-        private async void OnWatchListButtonClicked(object sender, EventArgs e) {
+        private async void WatchListClicked(object sender, EventArgs e) {
             await Navigation.PushAsync(new WatchListPage());
         }
 
+        private async void LogoutButtonClicked(object sender, EventArgs e) {
+            await Navigation.PopToRootAsync();
+            await Navigation.PushAsync(new SearchPage());
+        }
 
         private void AddToWatchListButtonClicked(object sender, EventArgs e) {
             if (!savedWatchList) {
