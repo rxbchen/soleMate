@@ -45,7 +45,18 @@ namespace soleMate {
 
         private async void OnLoginButtonClicked(object sender, EventArgs e) {
             //await Navigation.PushAsync(new SearchPage());
-            await Navigation.PushAsync(new WatchListPage()); //TODO: Change back
+            bool isAuth = false; 
+            //await Navigation.PushAsync(new WatchListPage()); //TODO: Change back
+            CredentialsAuthentication auth = new CredentialsAuthentication(UsernameField.Text, PasswordField.Text);
+            isAuth = await auth.ValidateUserAsync(); 
+            if (isAuth)
+            {
+                await Navigation.PushAsync(new SearchPage());
+            }
+            else
+            {
+                await DisplayAlert("Invalid username/password!", "", "OK");
+            }
         }
     }
 }

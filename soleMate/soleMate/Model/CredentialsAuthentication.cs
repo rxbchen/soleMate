@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 
 namespace soleMate.Model {
+    using soleMate.Service.API;
     public class CredentialsAuthentication : Behavior<Entry> { 
 
         // Private Variables
@@ -18,13 +19,27 @@ namespace soleMate.Model {
 
         // Public Methods
 
-        public bool ValidateUser() {
+        // 
+        public async System.Threading.Tasks.Task<bool> ValidateUserAsync() {
 
-            if (ValidateUsernameFormat() && ValidatePasswordFormat()) {
-                //TODO: Call to backend to validate
+            //if (ValidateUsernameFormat() && ValidatePasswordFormat()) {
+            //    //TODO: Call to backend to validate
+            //}
+
+            //return true; //TODO: Change to proper logic
+            // Calls the POST /login api
+            bool isAuth = false; 
+            try
+            {
+                HttpLoginRequests login = new HttpLoginRequests(App.RestClient);
+                isAuth = await login.Login(this.username, this.password);
             }
-
-            return true; //TODO: Change to proper logic
+            catch (Exception)
+            {
+                //TODO: Handle Exception
+                Console.WriteLine("Could not authenticate with the server");
+            }
+            return isAuth;
         }
 
 

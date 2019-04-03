@@ -20,6 +20,8 @@
     <Compile Remove="Model\searchObject.cs" />
     <Compile Remove="Model\EmptyCSharpFile.cs" />
     <Compile Remove="SearchResultsPage.xaml.cs" />
+    <Compile Remove="Service\API\EmptyClass.cs" />
+    <Compile Remove="Service\API\LoginRequests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="LoginCredentialsPage.xaml.cs">
