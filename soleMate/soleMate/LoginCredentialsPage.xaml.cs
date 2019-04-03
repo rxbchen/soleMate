@@ -57,6 +57,7 @@ namespace soleMate {
                 isAuth = await auth.ValidateUserAsync();
                 if (isAuth)
                 {
+                    Constants.LoginButton.loginAttempts = 0;
                     await Navigation.PushAsync(new SearchPage());
                 }
                 else
