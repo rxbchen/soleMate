@@ -135,7 +135,7 @@
                 Text="Search" 
                 FontSize="Small"
                 TextColor="White"
-                Clicked="OnSearchButtonClicked" 
+                Clicked="OnSearchButtonClickedAsync" 
                 VerticalOptions="Center"
                 HorizontalOptions="Center" />
         

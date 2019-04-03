@@ -15,15 +15,7 @@
                    HorizontalOptions="EndAndExpand"/>                
         </FlexLayout>                       
         
-        <ActivityIndicator x:Name="activityIndicator" 
-                           IsEnabled="true"
-                           IsRunning="true"
-                           IsVisible="true"
-                           Color="Black"
-                           HorizontalOptions="Center"
-                           VerticalOptions="CenterAndExpand" />
-        
-        <Grid x:Name="gridButtonLayout" Padding="0,0,0,0" IsVisible="true" Margin="10,0,10,0" ColumnSpacing="10">
+        <Grid x:Name="gridButtonLayout" Padding="0,0,0,0" IsVisible="{Binding ResultsReturned}" Margin="10,0,10,0" ColumnSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="42" />
             </Grid.RowDefinitions>

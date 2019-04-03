@@ -105,7 +105,7 @@ namespace soleMate {
             PriceRangeValue.Text = String.Format("$0 - ${0}", Search.ChosenHighPriceRange);
         }
 
-        private void OnSearchButtonClicked(object sender, EventArgs e) {
+        private async void OnSearchButtonClickedAsync(object sender, EventArgs e) {
             ShoeSearch shoe = new ShoeSearch {
                 model = Search.ChosenModel,
                 size = Search.ChosenShoeSize,
@@ -122,20 +122,23 @@ namespace soleMate {
             SearchButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
 
             // Calls the GET shoes/ api
-            Task.Run(async() => { 
-                try {
-                    HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
-                    SearchResult searchResult = await search.GetShoes(shoe);
+            try {
+                HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
+                SearchResult searchResult = await search.GetShoes(shoe);
 
-                    FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
-                    await Navigation.PushAsync(unfilteredSearchPage);
-                }
-                catch (Exception) {
-                    //TODO: Handle Exception
-                    await DisplayAlert("Sorry, something went wrong", "", "OK");
-                    Console.WriteLine("Exception Met");
-                }
-            });
+                activityIndicator.IsRunning = false;
+                activityIndicator.IsVisible = false;
+                SearchButton.IsEnabled = true;
+                SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+
+                FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
+                await Navigation.PushAsync(unfilteredSearchPage);
+            }
+            catch (Exception) {
+                //TODO: Handle Exception
+                await DisplayAlert("Sorry, something went wrong", "", "OK");
+                Console.WriteLine("Exception Met");
+            }
         }
     }
 }

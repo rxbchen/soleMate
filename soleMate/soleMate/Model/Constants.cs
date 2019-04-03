@@ -42,6 +42,7 @@ namespace soleMate.Model {
             public const int overlayHeight = 25;
             public const string outlineColour = "#D33F49";
             public const int numberOfTapsRequired = 1;
+            public const double opacity = 0.50;
         }
 
         public static class Text {
@@ -52,6 +53,7 @@ namespace soleMate.Model {
         public static class EmptyState {
             public const string searchResultTextMain = "Sorry! No results were found";
             public const string searchResultTextSecondary = "Please try another search";
+            public const string watchListTextMain = "Your Watchlist is Empty";
         }
     }
 }

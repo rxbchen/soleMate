@@ -2,27 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="soleMate.WatchListPage">
-    <StackLayout>
-        <FlexLayout BackgroundColor="#D33F49"
-                Direction="Row"
-                AlignItems="Start"
-                JustifyContent="SpaceBetween">
-            <Button x:Name="SearchButton" 
-                Text="Search" 
-                FontSize="Small"
-                TextColor="White"
-                Clicked="OnSearchButtonClicked" 
-                VerticalOptions="Center"
-                HorizontalOptions="Start" 
-                Padding="10,0,0,0" />
-            <Label Text=" " 
-                   HorizontalOptions="Center"
-                   FontSize="Large"
-                   TextColor="White"
-                   FontAttributes="Bold"
-                   VerticalOptions="Center" /> 
-        </FlexLayout>     
-        
+    <StackLayout Padding="25,35,25,35">    
+        <Button x:Name="AddWatchListButton" 
+                Text="+" 
+                FontSize="Large"
+                Grid.Row="0"
+                Grid.Column="1"                            
+                Clicked="AddWatchListButtonClickedAsync" 
+                VerticalOptions="Start"
+                HorizontalOptions="End" />
+        <ActivityIndicator x:Name="activityIndicator" IsEnabled="true"/>
+        <ScrollView>
+            <Grid x:Name="gridLayout" ColumnSpacing="10"></Grid>  
+        </ScrollView>            
     </StackLayout>    
 
 </ContentPage>

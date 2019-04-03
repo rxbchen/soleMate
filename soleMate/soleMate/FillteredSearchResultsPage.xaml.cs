@@ -35,7 +35,6 @@ namespace soleMate
             num_rows = 0;
         }
 
-        //TODO: Debug colour difference in Sort Price
         public FilteredSearchResultsPage(ShoeSearch shoeQuery, SearchResult searchResult) {
             InitializeComponent();
 
