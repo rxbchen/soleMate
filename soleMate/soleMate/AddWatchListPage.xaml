@@ -138,6 +138,8 @@
                     Clicked="AddButtonClicked" 
                     VerticalOptions="Center"
                     HorizontalOptions="Center" />
+            
+            <ActivityIndicator x:Name="activityIndicator" IsEnabled="true"/>
         </StackLayout>    
     </StackLayout>
 </ContentPage>
