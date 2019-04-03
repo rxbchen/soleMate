@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="soleMate.WatchListPage">
+             x:Class="soleMate.WatchListPage" >
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Search" Order="Primary" Text="Search" Priority="0" Clicked="SearchPageClicked" />
+        <ToolbarItem Name="Logout" Order="Primary" Text="Logout" Priority="1" Clicked="LogoutButtonClicked" />
+    </ContentPage.ToolbarItems>
+    
     <StackLayout Padding="25,35,25,35">    
         <Button x:Name="AddWatchListButton" 
                 Text="+" 
