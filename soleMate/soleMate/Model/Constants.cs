@@ -27,7 +27,7 @@ namespace soleMate.Model {
 
         public static class SearchDefaults {
             public const int lowPriceRange = 0;
-            public const int highPriceRange = 100;
+            public const int highPriceRange = 0;
             public const bool sortLowToHigh = true;
             public const string sortLowestText = "Lowest";
             public const string sortHighestText = "Highest";

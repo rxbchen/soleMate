@@ -18,6 +18,9 @@ namespace soleMate {
         // Private Variables
 
         private Search Search { get; set; }
+        private bool modelSelected = false;
+        private bool sizeSelected = false;
+        private bool sortSelected = false;
 
         // Constructor
 
@@ -32,6 +35,7 @@ namespace soleMate {
             HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
             Search.ModelList = await search.GetSupportedShoes();
             ModelPicker.ItemsSource = Search.ModelList;
+            modelSelected = false;
         }
 
         // Private Methods
@@ -73,13 +77,17 @@ namespace soleMate {
         // Picker Events
 
         private void HandleModelSelectedIndexChanged(object sender, EventArgs args) {
+            modelSelected = true;
+
             Picker picker = sender as Picker;
             var selectedItem = picker.SelectedItem;
 
-            Search.ChosenModel = (string)selectedItem; 
+            Search.ChosenModel = (string)selectedItem;
         }
 
         private void HandleSizeSelectedIndexChanged(object sender, EventArgs args) {
+            sizeSelected = true;
+
             Picker picker = sender as Picker;
             var selectedItem = picker.SelectedItem;
 
@@ -87,6 +95,8 @@ namespace soleMate {
         }
 
         private void HandleSortPriceSelectedIndexChanged(object sender, EventArgs args) {
+            sortSelected = true;
+
             Picker picker = sender as Picker;
             string selectedItem = (string)picker.SelectedItem; 
 
@@ -106,38 +116,43 @@ namespace soleMate {
         }
 
         private async void OnSearchButtonClickedAsync(object sender, EventArgs e) {
-            ShoeSearch shoe = new ShoeSearch {
-                model = Search.ChosenModel,
-                size = Search.ChosenShoeSize,
-                low_price = Search.ChosenLowPriceRange,
-                high_price = Search.ChosenHighPriceRange,
-                sortLowToHigh = Search.SortLowToHigh
-            };
+            if ( !(modelSelected && sizeSelected && sortSelected) ) {
+                await DisplayAlert("Inputs are Missing", "Please make sure 'Model', 'Size', and 'Sort Price' are populated", "OK");
+            } 
+            else {
+                ShoeSearch shoe = new ShoeSearch {
+                    model = Search.ChosenModel,
+                    size = Search.ChosenShoeSize,
+                    low_price = Search.ChosenLowPriceRange,
+                    high_price = Search.ChosenHighPriceRange,
+                    sortLowToHigh = Search.SortLowToHigh
+                };
 
-            // Load Spinner
+                // Load Spinner
 
-            activityIndicator.IsRunning = true;
-            activityIndicator.IsVisible = true;
-            SearchButton.IsEnabled = false;
-            SearchButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
+                activityIndicator.IsRunning = true;
+                activityIndicator.IsVisible = true;
+                SearchButton.IsEnabled = false;
+                SearchButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
 
-            // Calls the GET shoes/ api
-            try {
-                HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
-                SearchResult searchResult = await search.GetShoes(shoe);
+                // Calls the GET shoes/ api
+                try {
+                    HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
+                    SearchResult searchResult = await search.GetShoes(shoe);
 
-                activityIndicator.IsRunning = false;
-                activityIndicator.IsVisible = false;
-                SearchButton.IsEnabled = true;
-                SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
+                    activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
+                    SearchButton.IsEnabled = true;
+                    SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
 
-                FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
-                await Navigation.PushAsync(unfilteredSearchPage);
-            }
-            catch (Exception) {
-                //TODO: Handle Exception
-                await DisplayAlert("Sorry, something went wrong", "", "OK");
-                Console.WriteLine("Exception Met");
+                    FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
+                    await Navigation.PushAsync(unfilteredSearchPage);
+                }
+                catch (Exception) {
+                    //TODO: Handle Exception
+                    await DisplayAlert("Sorry, something went wrong", "", "OK");
+                    Console.WriteLine("Exception Met");
+                }
             }
         }
 
@@ -146,8 +161,11 @@ namespace soleMate {
         }
 
         private async void LogoutButtonClicked(object sender, EventArgs e) {
-            await Navigation.PopToRootAsync();
-            await Navigation.PushAsync(new SearchPage());
+            string action = await DisplayActionSheet("Are you sure you want to logout?", "No", null, "Yes");
+            if (action.Equals("Yes")) {
+                await Navigation.PopToRootAsync();
+                await Navigation.PushAsync(new SearchPage());
+            }
         }
     }
 }

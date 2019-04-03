@@ -225,8 +225,11 @@ namespace soleMate
         }
 
         private async void LogoutButtonClicked(object sender, EventArgs e) {
-            await Navigation.PopToRootAsync();
-            await Navigation.PushAsync(new SearchPage());
+            string action = await DisplayActionSheet("Are you sure you want to logout?", "No", null, "Yes");
+            if (action.Equals("Yes")) {
+                await Navigation.PopToRootAsync();
+                await Navigation.PushAsync(new SearchPage());
+            }
         }
 
         private void AddToWatchListButtonClicked(object sender, EventArgs e) {

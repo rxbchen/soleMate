@@ -9,19 +9,21 @@
     </ContentPage.ToolbarItems>
     
     <StackLayout Padding="10,10,10,10" > 
-        <FlexLayout Direction="Column" AlignItems="Start" JustifyContent="Start" BackgroundColor="#E5E5E5" Margin="-10,-10,-10,0" Padding="20,20,0,0"> 
+        <FlexLayout Direction="Column" AlignItems="Start" JustifyContent="Start" BackgroundColor="#E5E5E5" Margin="-10,-10,-10,0"> 
             <Label Text="Showing Results for: " 
                    FontSize="Medium"
                    FontAttributes="Bold"
-                   VerticalOptions="CenterAndExpand" />
+                   VerticalOptions="CenterAndExpand" 
+                   Margin="10,10,0,10"/>
             <Label Text="{Binding SearchResultText}" 
                    FontSize="Medium"
                    FontAttributes="None"
                    VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="EndAndExpand"/>                
+                   HorizontalOptions="EndAndExpand" 
+                   Margin="10,0,10,10" />                
         </FlexLayout>                       
         
-        <Grid x:Name="gridButtonLayout" Padding="0,0,0,0" IsVisible="{Binding ResultsReturned}" Margin="10,0,10,0" ColumnSpacing="10">
+        <Grid x:Name="gridButtonLayout" Padding="0,10,0,0" IsVisible="{Binding ResultsReturned}" Margin="10,0,10,0" ColumnSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="42" />
             </Grid.RowDefinitions>
