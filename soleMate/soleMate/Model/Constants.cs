@@ -4,6 +4,10 @@ using System.Collections.Generic;
 namespace soleMate.Model {
     public static class Constants {
 
+        public static class LoginButton {
+            public static int loginAttempts = 0; 
+        }
+
         public static class Button {
             public const int widthLong = 186;
             public const int widthShort = 136;
