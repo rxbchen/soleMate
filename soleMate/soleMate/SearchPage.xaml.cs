@@ -21,10 +21,12 @@ namespace soleMate {
         private bool modelSelected = false;
         private bool sizeSelected = false;
         private bool sortSelected = false;
+        private CredentialsAuthentication auth;
 
         // Constructor
 
-        public SearchPage() {
+        public SearchPage(CredentialsAuthentication auth) {
+            this.auth = auth;
             InitializeComponent();
             IntializeSelectionData();
             StylePage();
@@ -145,7 +147,7 @@ namespace soleMate {
                     SearchButton.IsEnabled = true;
                     SearchButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
 
-                    FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
+                    FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult, auth);
                     await Navigation.PushAsync(unfilteredSearchPage);
                 }
                 catch (Exception) {
@@ -157,14 +159,14 @@ namespace soleMate {
         }
 
         private async void WatchListClicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new WatchListPage());
+            await Navigation.PushAsync(new WatchListPage(auth));
         }
 
         private async void LogoutButtonClicked(object sender, EventArgs e) {
             string action = await DisplayActionSheet("Are you sure you want to logout?", "No", null, "Yes");
             if (action.Equals("Yes")) {
                 await Navigation.PopToRootAsync();
-                await Navigation.PushAsync(new SearchPage());
+                await Navigation.PushAsync(new SearchPage(auth));
             }
         }
     }

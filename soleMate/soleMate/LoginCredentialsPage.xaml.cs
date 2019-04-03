@@ -65,7 +65,7 @@ namespace soleMate {
                     Constants.LoginButton.loginAttempts = 0;
                     activityIndicator.IsRunning = false;
                     activityIndicator.IsVisible = false;
-                    await Navigation.PushAsync(new SearchPage());
+                    await Navigation.PushAsync(new SearchPage(auth));
                 }
                 else
                 {

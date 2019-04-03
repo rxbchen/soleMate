@@ -3,11 +3,14 @@ using Xamarin.Forms;
 
 namespace soleMate.Model {
     using soleMate.Service.API;
-    public class CredentialsAuthentication : Behavior<Entry> { 
+    public class CredentialsAuthentication : Behavior<Entry> {
+
+        // Public Variabls
+
+        public string username { get; }
 
         // Private Variables
 
-        private string username;
         private string password;
 
         // Constructor

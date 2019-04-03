@@ -46,7 +46,7 @@
                     FontSize="Small"
                     Grid.Row="0"
                     Grid.Column="1"                            
-                    Clicked="AddToWatchListButtonClicked" 
+                    Clicked="AddToWatchListButtonClickedAsync" 
                     VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand" />                    
         </Grid>                            

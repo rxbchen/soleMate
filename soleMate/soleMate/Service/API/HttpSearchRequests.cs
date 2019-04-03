@@ -123,27 +123,5 @@ namespace soleMate.Service.API
 
             return WishList;
         }
-
-        public async Task<bool> AddToWatchList(string cUsername, string cPassword)
-        {
-            bool isAuth = false;
-            // Create the payload
-            JObject jsonData = new JObject(
-                new JProperty("username", cUsername),
-                new JProperty("password", cPassword));
-            var content = new StringContent(JsonConvert.SerializeObject(jsonData), Encoding.UTF8, "application/json");
-            // Debugging
-            Console.WriteLine(content);
-            var result = await client.PostAsync("login", content);
-            if (result.IsSuccessStatusCode)
-            {
-                Console.WriteLine(result.IsSuccessStatusCode);
-                var response = await result.Content.ReadAsStringAsync();
-                JObject jsonObject = JObject.Parse(response);
-                isAuth = (bool)jsonObject["auth"];
-            }
-            return isAuth;
-
-        }
     }
 }

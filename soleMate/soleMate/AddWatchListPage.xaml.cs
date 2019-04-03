@@ -9,13 +9,15 @@
         // Private Variables
 
         private Search Search { get; set; }
+        private CredentialsAuthentication auth;
 
         // Constructor
 
-        public AddWatchList() {
+        public AddWatchList(CredentialsAuthentication auth) {
             InitializeComponent();
             IntializeSelectionData();
             StylePage();
+            this.auth = auth;
         }
 
         // Private Methods
@@ -92,14 +94,14 @@
         }
 
         private async void OnWatchListButtonClicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new WatchListPage());
+            await Navigation.PushAsync(new WatchListPage(auth));
         }
 
         private async void LogoutButtonClicked(object sender, EventArgs e) {
             string action = await DisplayActionSheet("Are you sure you want to logout?", "No", null, "Yes");
             if (action.Equals("Yes")) {
                 await Navigation.PopToRootAsync();
-                await Navigation.PushAsync(new SearchPage());
+                await Navigation.PushAsync(new SearchPage(auth));
             }
         }
     }

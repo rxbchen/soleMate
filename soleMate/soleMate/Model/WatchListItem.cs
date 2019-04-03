@@ -25,7 +25,7 @@
 
         // Public Methods
 
-        public async void WatchListItemClickedAsync() {
+        public async void WatchListItemClickedAsync(CredentialsAuthentication auth) {
             ShoeSearch shoe = new ShoeSearch {
                 model = Model,
                 size = ShoeSize,
@@ -41,7 +41,7 @@
 
                 //TODO: Figure out Activity Spinner
 
-                FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult);
+                FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult, auth);
                 await Xamarin.Forms.Application.Current.MainPage.Navigation.PushAsync(unfilteredSearchPage);
             }
             catch (Exception)

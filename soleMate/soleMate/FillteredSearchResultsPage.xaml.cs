@@ -5,6 +5,7 @@
     using Xamarin.Forms.Xaml;
     using soleMate.Model;
     using System.IO;
+    using soleMate.Service.API;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FilteredSearchResultsPage : ContentPage {
@@ -19,6 +20,7 @@
 
         private ShoeSearch shoeQuery = new ShoeSearch();
         private SearchResult searchResult = new SearchResult();
+        private CredentialsAuthentication auth;
         private int num_shoes;
         private int num_rows;
         private bool savedWatchList = false;
@@ -32,7 +34,7 @@
             num_rows = 0;
         }
 
-        public FilteredSearchResultsPage(ShoeSearch shoeQuery, SearchResult searchResult) {
+        public FilteredSearchResultsPage(ShoeSearch shoeQuery, SearchResult searchResult, CredentialsAuthentication auth) {
             InitializeComponent();
 
             SearchResultText = $"{shoeQuery.model}, Size {shoeQuery.size}, ${shoeQuery.low_price}-${shoeQuery.high_price}";
@@ -52,6 +54,7 @@
             BindingContext = this;
             this.shoeQuery = shoeQuery;
             this.searchResult = searchResult;
+            this.auth = auth;
 
             SortPricePicker.ItemsSource = new Search().SortPriceList;
 
@@ -218,26 +221,35 @@
         }
 
         private async void WatchListClicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new WatchListPage());
+            await Navigation.PushAsync(new WatchListPage(auth));
         }
 
         private async void LogoutButtonClicked(object sender, EventArgs e) {
             string action = await DisplayActionSheet("Are you sure you want to logout?", "No", null, "Yes");
             if (action.Equals("Yes")) {
                 await Navigation.PopToRootAsync();
-                await Navigation.PushAsync(new SearchPage());
+                await Navigation.PushAsync(new SearchPage(auth));
             }
         }
 
-        private void AddToWatchListButtonClicked(object sender, EventArgs e) {
+        private async void AddToWatchListButtonClickedAsync(object sender, EventArgs e) {
             if (!savedWatchList) {
                 //TODO: Populate Wish List
                 // Call /addToWatchist end point with shoeQuery info, on success display alert
-                DisplayAlert("Saved to Watchlist", "", "OK");
-                AddToWatchListButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
-                savedWatchList = true;
+
+                HttpWatchlistRequests watchlist = new HttpWatchlistRequests(App.RestClient);
+                bool addedToWatchList = await watchlist.AddToWatchList(auth.username, shoeQuery);
+
+                if (addedToWatchList) {
+                    await DisplayAlert("Saved to Watchlist", "", "OK");
+                    AddToWatchListButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
+                    savedWatchList = true;
+                } else {
+                    await DisplayAlert("Sorry! Could not save to Watchlist", "Try again later", "OK");
+                }
+
             } else {
-                DisplayAlert("Already Saved to Watchlist", "", "OK");
+                await DisplayAlert("Already Saved to Watchlist", "", "OK");
             }
         }
     }

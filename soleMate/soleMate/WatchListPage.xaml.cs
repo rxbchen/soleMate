@@ -11,14 +11,17 @@
 
         // Private Variables
         private List<WatchListItem> watchList = new List<WatchListItem>();
+        private CredentialsAuthentication auth;
         private int num_shoes;
         private int num_rows;
 
         // Constructor
 
-        public WatchListPage() {
+        public WatchListPage(CredentialsAuthentication auth) {
             InitializeComponent();
             InitializeData();
+
+            this.auth = auth;
 
             if (num_shoes != 0) {
                 CreateGrid();
@@ -148,18 +151,18 @@
         }
 
         private async void AddWatchListButtonClickedAsync(object sender, EventArgs e) {
-            await Navigation.PushAsync(new AddWatchList());
+            await Navigation.PushAsync(new AddWatchList(auth));
         }
 
         private async void SearchPageClicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new SearchPage());
+            await Navigation.PushAsync(new SearchPage(auth));
         }
 
         private async void LogoutButtonClicked(object sender, EventArgs e) {
             string action = await DisplayActionSheet("Are you sure you want to logout?", "No", null, "Yes");
             if (action.Equals("Yes")) {
                 await Navigation.PopToRootAsync();
-                await Navigation.PushAsync(new SearchPage());
+                await Navigation.PushAsync(new SearchPage(auth));
             }
         }
     }
