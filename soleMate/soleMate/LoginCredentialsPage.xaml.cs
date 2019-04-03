@@ -44,19 +44,28 @@ namespace soleMate {
         }
 
         private async void OnLoginButtonClicked(object sender, EventArgs e) {
-            //await Navigation.PushAsync(new SearchPage());
-            bool isAuth = false; 
-            //await Navigation.PushAsync(new WatchListPage()); //TODO: Change back
+            bool isAuth = false;
             CredentialsAuthentication auth = new CredentialsAuthentication(UsernameField.Text, PasswordField.Text);
-            isAuth = await auth.ValidateUserAsync(); 
-            if (isAuth)
+            if (Constants.LoginButton.loginAttempts >= 3)
             {
-                await Navigation.PushAsync(new SearchPage());
-            }
+                await DisplayAlert("Exceeded number of login attempts", "Please check email for reset instructions", "OK");
+                // Not actually disabled, just greyed out
+                LoginButton.BackgroundColor = Color.FromHex(Constants.Button.disabled); 
+            } 
             else
             {
-                await DisplayAlert("Invalid username/password!", "", "OK");
+                isAuth = await auth.ValidateUserAsync();
+                if (isAuth)
+                {
+                    await Navigation.PushAsync(new SearchPage());
+                }
+                else
+                {
+                    Constants.LoginButton.loginAttempts++;
+                    await DisplayAlert("Invalid username/password!", "", "OK");
+                }
             }
+
         }
     }
 }
