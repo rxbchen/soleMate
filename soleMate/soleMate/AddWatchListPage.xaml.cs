@@ -2,6 +2,7 @@
     using System;
     using System.Collections.Generic;
     using soleMate.Model;
+    using soleMate.Service.API;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 
@@ -110,8 +111,19 @@
                 AddButton.IsEnabled = false;
                 AddButton.BackgroundColor = Color.FromHex(Constants.Button.disabled);
 
-                //TODO: Populate Wish List
+                ShoeSearch shoe = new ShoeSearch
+                {
+                    model = Search.ChosenModel,
+                    size = Search.ChosenShoeSize,
+                    low_price = Search.ChosenLowPriceRange,
+                    high_price = Search.ChosenHighPriceRange,
+                    sortLowToHigh = Search.SortLowToHigh
+                };
+
                 // Call /addToWatchist end point with shoeQuery info, on success display alert
+                HttpWatchlistRequests watchlist = new HttpWatchlistRequests(App.RestClient);
+                bool addedToWatchList = await watchlist.AddToWatchList(auth.username, shoe);
+
                 await DisplayAlert("Saved to Watchlist", "", "OK");
 
                 activityIndicator.IsRunning = false;
@@ -119,7 +131,6 @@
                 AddButton.IsEnabled = true;
                 AddButton.BackgroundColor = Color.FromHex(Constants.Button.mainBackgroundColour);
 
-                //TODO: Replace Alert with A pop up page
             }
         }
 
