@@ -43,14 +43,12 @@
             await Navigation.PushAsync(new LoginCredentialsPage());
         }
 
-        private void FacebookButtonClicked(object sender, EventArgs e) {
-            ((Button)sender).Text = "HELLOHELLO";
-            //TODO: Facebook plugin
+        private async void FacebookButtonClicked(object sender, EventArgs e) {
+            await DisplayAlert("Feature Not Available Yet", "Engineers are working hard to get this up!", "OK");
         }
 
-        private void SignUpButtonClicked(object sender, EventArgs e) {
-            ((Button)sender).Text = "YAS";
-            //TODO: SignUp plugin
+        private async void SignUpButtonClicked(object sender, EventArgs e) {
+            await DisplayAlert("Sorry! Currently not taking new users", "", "OK");
         }
     }
 }

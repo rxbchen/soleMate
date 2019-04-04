@@ -225,7 +225,7 @@
         }
 
         private async void LogoutButtonClicked(object sender, EventArgs e) {
-            string action = await DisplayActionSheet("Are you sure you want to logout?", "No", null, "Yes");
+            string action = await DisplayActionSheet("Confirm logout?", "No", null, "Yes");
             if (action.Equals("Yes")) {
                 await Navigation.PopToRootAsync();
                 await Navigation.PushAsync(new SearchPage(auth));
@@ -234,9 +234,6 @@
 
         private async void AddToWatchListButtonClickedAsync(object sender, EventArgs e) {
             if (!savedWatchList) {
-                //TODO: Populate Wish List
-                // Call /addToWatchist end point with shoeQuery info, on success display alert
-
                 HttpWatchlistRequests watchlist = new HttpWatchlistRequests(App.RestClient);
                 bool addedToWatchList = await watchlist.AddToWatchList(auth.username, shoeQuery);
 
