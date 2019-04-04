@@ -61,9 +61,9 @@
                 HttpWatchlistRequests delete = new HttpWatchlistRequests(App.RestClient);
                 await delete.Delete(username, 
                                     this.Model, 
-                                    this.ShoeSize,
-                                    this.LowPriceRange,
-                                    this.HighPriceRange);
+                                    this.Size,
+                                    this.PriceMin,
+                                    this.PriceMax);
             }
             catch (Exception)
             {
