@@ -7,7 +7,6 @@
 
         // Public Variables
 
-        public bool searchingWatchListItem = false;
         public string Model { get; }
         public int Size { get; }
         public int PriceMin { get; }
@@ -16,16 +15,18 @@
 
         // Constructor
 
-        public WatchListItem(string Model, int Size, int priceMin, int PriceMax) {
+        public WatchListItem(string Model, int Size, int PriceMin, int PriceMax) {
             this.Model = Model;
             this.Size = Size;
-            this.PriceMin = priceMin;
+            this.PriceMin = PriceMin;
             this.PriceMax = PriceMax;
         }
 
         // Public Methods
 
-        public async void WatchListItemClickedAsync(CredentialsAuthentication auth) {
+        public async System.Threading.Tasks.Task<SearchResult> SearchWatchListItem() {
+            SearchResult searchResult = new SearchResult();
+
             ShoeSearch shoe = new ShoeSearch {
                 model = Model,
                 size = Size,
@@ -35,29 +36,19 @@
             };
 
             try {
-                searchingWatchListItem = true;
                 HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
-                SearchResult searchResult = await search.GetShoes(shoe);
-
-                //TODO: Figure out Activity Spinner
-
-                FilteredSearchResultsPage unfilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult, auth);
-                await Xamarin.Forms.Application.Current.MainPage.Navigation.PushAsync(unfilteredSearchPage);
+                searchResult = await search.GetShoes(shoe);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 //TODO: Handle Exception
-                //await DisplayAlert("Sorry, something went wrong", "", "OK");
-                Console.WriteLine("Exception Met");
+                Console.WriteLine("Could not Search from server");
             }
+
+            return searchResult;
         }
 
-        public async void DeleteWatchListItemAsync(string username)
-        {
-        
-            //bool isDeleted = false;
-            try
-            {
+        public async void DeleteWatchListItemAsync(string username) {
+            try {
                 HttpWatchlistRequests delete = new HttpWatchlistRequests(App.RestClient);
                 await delete.Delete(username, 
                                     this.Model, 
@@ -65,12 +56,10 @@
                                     this.PriceMin,
                                     this.PriceMax);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 //TODO: Handle Exception
                 Console.WriteLine("Could not delete item from server");
             }
-            //return isDeleted;
         }
     }
 }

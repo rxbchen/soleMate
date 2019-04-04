@@ -27,7 +27,7 @@
 
         // Constructors 
 
-        public FilteredSearchResultsPage() {
+        public FilteredSearchResultsPage(WatchListItem watchListItem) {
             InitializeComponent();
             BindingContext = this;
             num_shoes = 0;

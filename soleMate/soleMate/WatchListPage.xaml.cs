@@ -80,10 +80,10 @@
             gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
 
             // Populate Grid
-            PopulateGridAsync();
+            PopulateGrid();
         }
 
-        private async Task PopulateGridAsync() {
+        private void PopulateGrid() {
 
             // Clear Grid
 
@@ -139,15 +139,24 @@
                         var boxviewSender = (BoxView)s;
                         int boxviewID = Convert.ToInt32(boxviewSender.ClassId); 
                         string action = await DisplayActionSheet("Watchlist Item Actions", "Cancel", null, "Search", "Delete");
-                        if (action.Equals("Search"))
-                        {
+                        if (action.Equals("Search")) {
                             Console.WriteLine("Conducting a search on watchlist item");
-                            //Device.OpenUri(new Uri(searchResult.ShoeList[imageID].Url));
+                            WatchListItem currentWatchList = watchList[boxviewID];
+                            SearchResult searchResult = await currentWatchList.SearchWatchListItem();
+
+                            ShoeSearch shoe = new ShoeSearch {
+                                model = currentWatchList.Model,
+                                size = currentWatchList.Size,
+                                low_price = currentWatchList.PriceMin,
+                                high_price = currentWatchList.PriceMax,
+                                sortLowToHigh = Constants.SearchDefaults.sortLowToHigh
+                            };
+
+                            FilteredSearchResultsPage FilteredSearchPage = new FilteredSearchResultsPage(shoe, searchResult, auth);
+                            await Navigation.PushAsync(FilteredSearchPage);
                         }
-                        else if (action.Equals("Delete"))
-                        {
+                        else if (action.Equals("Delete")) {
                             Console.WriteLine("Deleting item from user's watchlist");
-                            Console.WriteLine(boxviewID);
                             watchList[boxviewID].DeleteWatchListItemAsync(auth.username);
                             Console.WriteLine("Deleted"); 
                         }
