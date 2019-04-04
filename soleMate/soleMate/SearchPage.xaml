@@ -5,15 +5,18 @@
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="WatchList" Order="Primary" Text="WatchList" Priority="0" Clicked="WatchListClicked" />
-        <ToolbarItem Name="Logout" Order="Primary" Text="Logout" Priority="1" Clicked="LogoutButtonClicked" />
+        <ToolbarItem Name="Logout" Order="Primary" Text="Logout" Priority="2" Clicked="LogoutButtonClicked" />
     </ContentPage.ToolbarItems>
     
     <StackLayout Padding="40,65,40,65">
-        <Label Text="Search" 
-               HorizontalOptions="Center"
-               FontSize="Large"
-               FontAttributes="Bold"
-               VerticalOptions="Center" />
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Orientation="Horizontal">
+            <Label Text="Search" 
+                   HorizontalOptions="Center"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+            <Image Source="searchIcon.png" WidthRequest="25" HeightRequest="25"/>
+        </StackLayout>
         
         <Grid Padding="0,17,0,0">
             <Grid.RowDefinitions>
