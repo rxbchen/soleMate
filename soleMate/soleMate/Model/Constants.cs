@@ -16,6 +16,8 @@ namespace soleMate.Model {
             public const string secondaryBackgroundColour = "#0C7C59";
             public const string thirdBackgroundColour = "#FED766";
             public const string disabled = "#50514F";
+            public const int imageWidth = 37;
+            public const int imageHeight = 37;
         }
 
         public static class InputField {

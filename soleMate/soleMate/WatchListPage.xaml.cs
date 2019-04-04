@@ -10,6 +10,7 @@
     public partial class WatchListPage : ContentPage {
 
         // Private Variables
+
         private List<WatchListItem> watchList = new List<WatchListItem>();
         private CredentialsAuthentication auth;
         private int num_shoes;
@@ -22,6 +23,7 @@
 
             InitializeComponent();
             InitializeData();
+            StylePage();
         }
 
         // Private Methods
@@ -48,6 +50,11 @@
                     Console.WriteLine(e.Message);
                 }
             });
+        }
+
+        private void StylePage() {
+            AddWatchListButton.HeightRequest = Constants.Button.imageHeight;
+            AddWatchListButton.WidthRequest = Constants.Button.imageWidth;
         }
 
         private void CreateEmptyState() {

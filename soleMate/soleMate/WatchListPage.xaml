@@ -11,8 +11,7 @@
     
     <StackLayout Padding="25,35,25,35">    
         <Button x:Name="AddWatchListButton" 
-                Text="+" 
-                FontSize="Large"
+                Image="Add.png"
                 Grid.Row="0"
                 Grid.Column="1"                            
                 Clicked="AddWatchListButtonClickedAsync" 
