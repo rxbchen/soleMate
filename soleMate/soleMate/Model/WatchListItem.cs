@@ -51,6 +51,27 @@
                 Console.WriteLine("Exception Met");
             }
         }
+
+        public async void DeleteWatchListItemAsync(string username)
+        {
+        
+            //bool isDeleted = false;
+            try
+            {
+                HttpWatchlistRequests delete = new HttpWatchlistRequests(App.RestClient);
+                await delete.Delete(username, 
+                                    this.Model, 
+                                    this.ShoeSize,
+                                    this.LowPriceRange,
+                                    this.HighPriceRange);
+            }
+            catch (Exception)
+            {
+                //TODO: Handle Exception
+                Console.WriteLine("Could not delete item from server");
+            }
+            //return isDeleted;
+        }
     }
 }
 

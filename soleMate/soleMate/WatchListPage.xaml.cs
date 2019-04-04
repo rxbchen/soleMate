@@ -89,10 +89,10 @@
             gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
 
             // Populate Grid
-            PopulateGrid();
+            PopulateGridAsync();
         }
 
-        private void PopulateGrid() {
+        private async Task PopulateGridAsync() {
 
             // Clear Grid
 
@@ -141,11 +141,38 @@
                         Margin = new Thickness(5, 0, 0, 0),
                     };
 
+                    // Display action sheet when a watchlist item is tapped
+                    TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer(); 
+                    tapGestureRecognizer.NumberOfTapsRequired = 1;
+                    tapGestureRecognizer.Tapped += async (s, e) => {
+                        var boxviewSender = (BoxView)s;
+                        // Not needed yet
+                        //int boxviewID = Convert.ToInt32(boxviewSender.ClassId); 
+                        string action = await DisplayActionSheet("Watchlist Item Actions", "Cancel", null, "Search", "Delete");
+                        if (action.Equals("Search"))
+                        {
+                            Console.WriteLine("Conducting a search on watchlist item");
+                            //Device.OpenUri(new Uri(searchResult.ShoeList[imageID].Url));
+                        } 
+                        else if (action.Equals("Delete"))
+                        {
+                            Console.WriteLine("Deleting item from user's watchlist");
+                            WatchListItem toDelete = new WatchListItem(watchList[shoeResultNum].Model, watchList[shoeResultNum].ShoeSize, watchList[shoeResultNum].LowPriceRange, watchList[shoeResultNum].HighPriceRange);
+                            toDelete.DeleteWatchListItemAsync(auth.username);
+                            Console.WriteLine("Deleted");
+                    
+                        }
+                    };
+                    overlay.GestureRecognizers.Add(tapGestureRecognizer);
+
                     shoeResultNum += 1;
 
                     gridLayout.Children.Add(outline, colIndex, rowIndex);
                     gridLayout.Children.Add(overlay, colIndex, rowIndex);
                     gridLayout.Children.Add(label, colIndex, rowIndex);
+
+                    //string action = await DisplayActionSheet("ActionSheet: Send to?", "Cancel", null, "Email", "Twitter", "Facebook");
+                    //Console.WriteLine("Action: " + action);
                 }
             }
         }

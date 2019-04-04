@@ -49,6 +49,36 @@
 
         }
 
+        public async Task<bool> Delete(string username, string model, float size, float priceMin, float priceMax)
+        {
+
+            bool deletedFromWatchlist = false;
+
+            // Create the payload
+
+            JObject jsonData = new JObject(
+                new JProperty("username", username),
+                new JProperty("model", model),
+                new JProperty("size", size),
+                new JProperty("priceMin", priceMin),
+                new JProperty("priceMax", priceMax)
+                );
+
+            var content = new StringContent(JsonConvert.SerializeObject(jsonData), Encoding.UTF8, "application/json");
+
+            // Debugging
+
+            Console.WriteLine(content);
+            var result = await client.PostAsync("watchlist/delete", content);
+            if (result.IsSuccessStatusCode)
+            {
+                deletedFromWatchlist = true;
+            }
+
+            return deletedFromWatchlist;
+
+        }
+
         public async Task<List<WatchListItem>> GetWatchlist(string cUsername)
         {
             List<WatchListItem> WatchlistList = new List<WatchListItem>();
