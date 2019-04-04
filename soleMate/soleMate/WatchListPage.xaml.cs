@@ -132,13 +132,8 @@
                         Margin = new Thickness(5, 0, 0, 0),
                     };
 
-                    shoeResultNum += 1;
-
-                    gridLayout.Children.Add(outline, colIndex, rowIndex);
-                    gridLayout.Children.Add(overlay, colIndex, rowIndex);
-                    gridLayout.Children.Add(label, colIndex, rowIndex);
-
                     // Display action sheet when a watchlist item is tapped
+
                     TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
                     tapGestureRecognizer.NumberOfTapsRequired = 1;
                     tapGestureRecognizer.Tapped += async (s, e) => {
@@ -154,15 +149,29 @@
                         else if (action.Equals("Delete"))
                         {
                             Console.WriteLine("Deleting item from user's watchlist");
-                            WatchListItem toDelete = new WatchListItem(watchList[shoeResultNum].Model, watchList[shoeResultNum].Size, watchList[shoeResultNum].PriceMin, watchList[shoeResultNum].PriceMax);
-                            Console.WriteLine(toDelete);
-                            toDelete.DeleteWatchListItemAsync(auth.username);
+                            //Console.WriteLine(shoeResultNum);
+                            //Console.WriteLine(watchList[shoeResultNum].Model);
+                            //Console.WriteLine(watchList[shoeResultNum].Size);
+                            //Console.WriteLine(watchList[shoeResultNum].PriceMin);
+                            //Console.WriteLine(watchList[shoeResultNum].PriceMax);
+                            //WatchListItem toDelete = new WatchListItem(watchList[shoeResultNum].Model,
+                            //                                           watchList[shoeResultNum].Size, 
+                            //                                           watchList[shoeResultNum].PriceMin, 
+                            //                                           watchList[shoeResultNum].PriceMax);
+                            //Console.WriteLine(toDelete);
+                            watchList[shoeResultNum].DeleteWatchListItemAsync(auth.username);
                             Console.WriteLine("Deleted");
 
                         }
                     };
                     overlay.GestureRecognizers.Add(tapGestureRecognizer);
 
+
+                    shoeResultNum += 1;
+
+                    gridLayout.Children.Add(outline, colIndex, rowIndex);
+                    gridLayout.Children.Add(overlay, colIndex, rowIndex);
+                    gridLayout.Children.Add(label, colIndex, rowIndex);
                 }
             }
         }
