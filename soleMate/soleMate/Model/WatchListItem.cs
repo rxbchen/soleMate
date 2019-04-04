@@ -9,18 +9,18 @@
 
         public bool searchingWatchListItem = false;
         public string Model { get; }
-        public int ShoeSize { get; }
-        public int LowPriceRange { get; }
-        public int HighPriceRange { get; }
+        public int Size { get; }
+        public int PriceMin { get; }
+        public int PriceMax { get; }
 
 
         // Constructor
 
-        public WatchListItem(string Model, int ShoeSize, int LowPriceRange, int HighPriceRange) {
+        public WatchListItem(string Model, int Size, int priceMin, int PriceMax) {
             this.Model = Model;
-            this.ShoeSize = ShoeSize;
-            this.LowPriceRange = LowPriceRange;
-            this.HighPriceRange = HighPriceRange;
+            this.Size = Size;
+            this.PriceMin = priceMin;
+            this.PriceMax = PriceMax;
         }
 
         // Public Methods
@@ -28,9 +28,9 @@
         public async void WatchListItemClickedAsync(CredentialsAuthentication auth) {
             ShoeSearch shoe = new ShoeSearch {
                 model = Model,
-                size = ShoeSize,
-                low_price = LowPriceRange,
-                high_price = HighPriceRange,
+                size = Size,
+                low_price = PriceMin,
+                high_price = PriceMax,
                 sortLowToHigh = Constants.SearchDefaults.sortLowToHigh
             };
 

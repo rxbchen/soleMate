@@ -18,43 +18,34 @@
         // Constructor
 
         public WatchListPage(CredentialsAuthentication auth) {
-            InitializeComponent();
-            InitializeData();
-
             this.auth = auth;
 
-            if (num_shoes != 0) {
-                CreateGrid();
-            }
-            else {
-                CreateEmptyState();
-            }
+            InitializeComponent();
+            InitializeData();
         }
 
         // Private Methods
 
         private void InitializeData() {
-            WatchListItem item1 = new WatchListItem("Yeezy", 10, 0, 700);
-            WatchListItem item2 = new WatchListItem("Yeezy", 9, 0, 700);
-            WatchListItem item3 = new WatchListItem("Yeezy", 8, 0, 700);
-            WatchListItem item4 = new WatchListItem("Yeezy", 5, 0, 700);
-
-            watchList.Add(item1);
-            watchList.Add(item2);
-            watchList.Add(item3);
-            watchList.Add(item4);
-
-            num_shoes = watchList.Count;
-
-            Task.Run(async () => { 
+            Task.Run(async () => {
                 try {
-                    //TODO: Implement
-                    //HttpSearchRequests search = new HttpSearchRequests(App.RestClient);
-                    //SearchResult searchResult = await search.GetWishList();
+                    HttpWatchlistRequests watchListRequest = new HttpWatchlistRequests(App.RestClient);
+                    watchList = await watchListRequest.GetWatchlist(auth.username);
+                    num_shoes = watchList.Count;
+
+                    Device.BeginInvokeOnMainThread(() => {
+                        if (num_shoes != 0) {
+                            CreateGrid();
+                        }
+                        else {
+                            CreateEmptyState();
+                        }
+                    });
                 } 
-                catch {
+                catch (Exception e){
                     await DisplayAlert("Sorry, something went wrong", "", "OK");
                     Console.WriteLine("Exception Met");
+                    Console.WriteLine(e.Message);
                 }
             });
         }
@@ -133,7 +124,7 @@
 
                     var label = new Label
                     {
-                        Text = String.Format("{0} \n Size: {1} \n ${2} - ${3}", watchList[shoeResultNum].Model, watchList[shoeResultNum].ShoeSize, watchList[shoeResultNum].LowPriceRange, watchList[shoeResultNum].HighPriceRange),
+                        Text = String.Format("{0} \n Size: {1} \n ${2} - ${3}", watchList[shoeResultNum].Model, watchList[shoeResultNum].Size, watchList[shoeResultNum].PriceMin, watchList[shoeResultNum].PriceMax),
                         VerticalOptions = LayoutOptions.Start,
                         HorizontalOptions = LayoutOptions.Center,
                         TextColor = Color.White,
