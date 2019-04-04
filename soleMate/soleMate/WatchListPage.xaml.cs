@@ -105,27 +105,26 @@
                     {
                         HorizontalOptions = LayoutOptions.Start,
                         VerticalOptions = LayoutOptions.Start,
-                        HeightRequest = Constants.SearchItem.outlineHeight,
-                        WidthRequest = Constants.SearchItem.outlineWidth,
-                        BackgroundColor = Color.FromHex(Constants.SearchItem.overlayBackgroundColour),
-                        Opacity = Constants.SearchItem.opacity
+                        HeightRequest = Constants.WatchListItem.outlineHeight,
+                        WidthRequest = Constants.WatchListItem.outlineWidth,
+                        BackgroundColor = Color.FromHex(Constants.WatchListItem.overlayBackgroundColour)
                     };
 
                     var outline = new Frame
                     {
                         HorizontalOptions = LayoutOptions.Start,
                         VerticalOptions = LayoutOptions.Start,
-                        HeightRequest = Constants.SearchItem.outlineHeight,
-                        WidthRequest = Constants.SearchItem.outlineWidth,
-                        BorderColor = Color.FromHex(Constants.SearchItem.outlineColour),
+                        HeightRequest = Constants.WatchListItem.outlineHeight,
+                        WidthRequest = Constants.WatchListItem.outlineWidth,
+                        BorderColor = Color.FromHex(Constants.WatchListItem.outlineColour),
                         HasShadow = false,
                         Padding = new Thickness(0, 0, 0, 0)
                     };
 
                     var label = new Label
                     {
-                        Text = String.Format("{0} \n Size: {1} \n ${2} - ${3}", watchList[shoeResultNum].Model, watchList[shoeResultNum].Size, watchList[shoeResultNum].PriceMin, watchList[shoeResultNum].PriceMax),
-                        VerticalOptions = LayoutOptions.Start,
+                        Text = String.Format("{0}\nSize: {1}\n${2} - ${3}", watchList[shoeResultNum].Model, watchList[shoeResultNum].Size, watchList[shoeResultNum].PriceMin, watchList[shoeResultNum].PriceMax),
+                        VerticalOptions = LayoutOptions.Center,
                         HorizontalOptions = LayoutOptions.Center,
                         TextColor = Color.White,
                         FontAttributes = FontAttributes.Bold,
